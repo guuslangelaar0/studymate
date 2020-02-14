@@ -32,7 +32,7 @@ class TeacherController extends Controller
             return redirect()->back()->with('danger',$e->getMessage());
         }
 
-        return redirect()->route('admin.teacher.index');
+        return redirect()->route('admin.teacher.index')->with('success','Teacher Created');
     }
 
 
