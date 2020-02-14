@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 class TeacherController extends Controller
 {
 
-    public function index()
+    public function index($pp = 15)
     {
-        $teachers = Teacher::all();
+        $teachers = Teacher::paginate(15);
         return view('admin.teacher.index',compact('teachers'));
     }
 
@@ -28,7 +28,7 @@ class TeacherController extends Controller
             $data = $request->all();
             $teacher = new Teacher($data);
             $teacher->save();
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             return redirect()->back()->with('danger',$e->getMessage());
         }
 
@@ -56,7 +56,7 @@ class TeacherController extends Controller
             $teacher = Teacher::find($id);
             $teacher->update($data);
 
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             return redirect()->back()->with('danger',$e->getMessage());
         }
         return redirect()->route('admin.teacher.index')->with('success','Teacher updated');
@@ -65,6 +65,12 @@ class TeacherController extends Controller
 
     public function destroy($id)
     {
-        //
+        try {
+            $teacher = Teacher::find($id);
+            $teacher->delete();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('danger', $e->getMessage());
+        }
+        return redirect()->route('admin.teacher.index')->with('success','Teacher deleted');
     }
 }
