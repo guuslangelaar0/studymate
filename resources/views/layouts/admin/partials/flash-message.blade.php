@@ -1,6 +1,4 @@
-<div class="container">
-
-
+<div class="container-fluid">
 @foreach (['danger', 'warning', 'success', 'info'] as $msg)
     @if(Session::has($msg))
         <div class="row">
