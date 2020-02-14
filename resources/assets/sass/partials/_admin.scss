@@ -1,3 +1,73 @@
 .admin-layout{
+    overflow-x: hidden;
 
+    #app{
+        &.toggled #sidebar-wrapper {
+            margin-left: 0;
+        }
+        #sidebar-wrapper {
+            min-height: 100vh;
+            margin-left: -15rem;
+            -webkit-transition: margin .25s ease-out;
+            -moz-transition: margin .25s ease-out;
+            -o-transition: margin .25s ease-out;
+            transition: margin .25s ease-out;
+            border-right: 1px solid black;
+
+
+            .sidebar-heading {
+                padding: 0.875rem 1.25rem;
+                font-size: 1.2rem;
+                border-bottom: 1px solid black;
+            }
+
+            .list-group {
+                width: 15rem;
+
+                .divider{
+                    border-top: 1px solid black;
+                    width: 100%;
+                }
+
+                .list-group-item{
+                    background: transparent;
+                    color: white;
+                    text-decoration: none;
+
+
+                    &:hover, &.active{
+                        background: rgba(0,0,0,.5);
+                    }
+                    &.active{
+                        border: 0;
+                        border-bottom: 1px solid $blue;
+                    }
+                    i{
+                        margin-right: 10px;
+                        width: 20px;
+                    }
+                }
+            }
+        }
+        main {
+            min-width: 100vw;
+        }
+    }
+
+    @media (min-width: 768px) {
+        #app{
+            #sidebar-wrapper {
+                margin-left: 0;
+            }
+
+            main {
+                min-width: 0;
+                width: 100%;
+            }
+
+            &.toggled #sidebar-wrapper {
+                margin-left: -15rem;
+            }
+        }
+    }
 }

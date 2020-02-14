@@ -74,7 +74,7 @@ body {
   font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.6;
-  color: #212529;
+  color: #fff;
   text-align: left;
   background-color: #f8fafc;
 }
@@ -1807,7 +1807,7 @@ pre code {
 .table {
   width: 100%;
   margin-bottom: 1rem;
-  color: #212529;
+  color: #fff;
 }
 
 .table th,
@@ -1857,7 +1857,7 @@ pre code {
 }
 
 .table-hover tbody tr:hover {
-  color: #212529;
+  color: #fff;
   background-color: rgba(0, 0, 0, 0.075);
 }
 
@@ -2262,7 +2262,7 @@ select.form-control:focus::-ms-value {
   margin-bottom: 0;
   font-size: 0.9rem;
   line-height: 1.6;
-  color: #212529;
+  color: #fff;
   background-color: transparent;
   border: solid transparent;
   border-width: 1px 0;
@@ -2654,7 +2654,7 @@ textarea.form-control.is-invalid {
 .btn {
   display: inline-block;
   font-weight: 400;
-  color: #212529;
+  color: #fff;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
@@ -2678,7 +2678,7 @@ textarea.form-control.is-invalid {
 }
 
 .btn:hover {
-  color: #212529;
+  color: #fff;
   text-decoration: none;
 }
 
@@ -3436,7 +3436,7 @@ input[type=button].btn-block {
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
   font-size: 0.9rem;
-  color: #212529;
+  color: #fff;
   text-align: left;
   list-style: none;
   background-color: #fff;
@@ -5744,7 +5744,7 @@ a.badge-dark.focus {
 }
 
 .list-group-item-action:active {
-  color: #212529;
+  color: #fff;
   background-color: #e9ecef;
 }
 
@@ -6676,7 +6676,7 @@ a.close.disabled {
 
 .popover-body {
   padding: 0.5rem 0.75rem;
-  color: #212529;
+  color: #fff;
 }
 
 .carousel {
@@ -10746,7 +10746,7 @@ a.text-dark:focus {
 }
 
 .text-body {
-  color: #212529 !important;
+  color: #fff !important;
 }
 
 .text-muted {
@@ -10888,6 +10888,76 @@ a.text-dark:focus {
   }
 }
 
+.admin-layout {
+  overflow-x: hidden;
+}
+
+.admin-layout #app.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+.admin-layout #app #sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  transition: margin 0.25s ease-out;
+  border-right: 1px solid black;
+}
+
+.admin-layout #app #sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+  border-bottom: 1px solid black;
+}
+
+.admin-layout #app #sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+.admin-layout #app #sidebar-wrapper .list-group .divider {
+  border-top: 1px solid black;
+  width: 100%;
+}
+
+.admin-layout #app #sidebar-wrapper .list-group .list-group-item {
+  background: transparent;
+  color: white;
+  text-decoration: none;
+}
+
+.admin-layout #app #sidebar-wrapper .list-group .list-group-item:hover,
+.admin-layout #app #sidebar-wrapper .list-group .list-group-item.active {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.admin-layout #app #sidebar-wrapper .list-group .list-group-item.active {
+  border: 0;
+  border-bottom: 1px solid #3490dc;
+}
+
+.admin-layout #app #sidebar-wrapper .list-group .list-group-item i {
+  margin-right: 10px;
+  width: 20px;
+}
+
+.admin-layout #app main {
+  min-width: 100vw;
+}
+
+@media (min-width: 768px) {
+  .admin-layout #app #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  .admin-layout #app main {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .admin-layout #app.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+
 .auth-layout #app {
   display: flex;
   align-items: center;
@@ -10942,5 +11012,75 @@ html,
 
 .card .card-body {
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+table caption {
+  font-size: 1.5em;
+  margin: 0.25em 0 0.75em;
+}
+
+table tr {
+  padding: 0.35em;
+}
+
+table th,
+table td {
+  padding: 0.625em;
+  text-align: center;
+}
+
+table th {
+  font-size: 0.85em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+table td img {
+  text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+
+  table thead {
+    display: none;
+  }
+
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: 0.625em;
+  }
+
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 0.8em;
+    text-align: right;
+  }
+
+  table td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  table td:last-child {
+    border-bottom: 0;
+  }
 }
 

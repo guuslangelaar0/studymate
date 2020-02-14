@@ -50,8 +50,8 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{route('admin.dashboard.index')}}">Dashboard</a>
-                                    <a class="dropdown-item" href="{{route('admin.dashboard.index')}}">Profile</a>
+                                    <a class="dropdown-item" href="{{route('admin.index')}}">Admin Environment</a>
+                                    <a class="dropdown-item" href="{{route('admin.index')}}">Profile</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
