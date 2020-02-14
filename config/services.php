@@ -30,4 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+        'client_id' => '581967061100-ek95hkouo2kqhngcnqh34da7jlh1om11.apps.googleusercontent.com',
+        'client_secret' => '4i4oCfoDhznwEQi3pvV_y2PT',
+        'redirect' => 'https://studymate.guuslangelaar.nl/google/callback'
+    ]
+
 ];

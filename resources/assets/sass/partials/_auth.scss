@@ -1,0 +1,31 @@
+.auth-layout{
+    #app{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+
+        main{
+            max-width: 100%;
+        }
+        h1{
+            color: white;
+
+        }
+        .card{
+            width: 300px;
+            max-width: 100%;
+            border: none;
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .google-sso{
+            margin: 20px 0px;
+            text-align: center;
+            img{
+                width: 200px;
+            }
+        }
+    }
+}

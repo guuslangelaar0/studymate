@@ -1,0 +1,38 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '../../../node_modules/bootstrap/scss/bootstrap';
+
+// Font Awesome
+@import "../../../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+
+// Layouts
+@import 'partials/admin';
+@import 'partials/auth';
+@import 'partials/guest';
+
+body, html, #app{
+    height: 100%;
+    min-height: 100%;
+}
+
+#app{
+    background: linear-gradient(47deg, rgba(0,0,0,1) 0%, rgba(20,20,20,1) 50%, rgba(50,50,50,1) 100%);
+}
+
+.card{
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(0,0,0,.5);
+
+    .card-header{
+        background-color: rgba(0,0,0,.5);
+    }
+    .card-body{
+        background-color: rgba(0,0,0,.2);
+    }
+}
