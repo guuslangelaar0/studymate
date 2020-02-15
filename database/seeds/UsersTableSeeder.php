@@ -19,6 +19,8 @@ class UsersTableSeeder extends Seeder
             $user->email = 'guuslangelaar@gmail.com';
             $user->password = bcrypt('test123');
             $user->save();
+
+            $user->roles()->sync([1]);
         }
 
         if(User::where('email','royberris@gmail.com')->first() === null){
@@ -28,6 +30,8 @@ class UsersTableSeeder extends Seeder
             $user->email = 'royberris@gmail.com';
             $user->password = bcrypt('test123');
             $user->save();
+
+            $user->roles()->sync([1]);
         }
     }
 }

@@ -12,6 +12,10 @@
         <hr class="divider">
         <a href="{{route('guest.index')}}" class="list-group-item {{setItemActive('guest.index')}}"> <i class="fas fa-tachometer-alt"></i> Dashboard</a>
         <hr class="divider">
+        <a href="{{route('admin.user.index')}}" class="list-group-item {{setItemActive('admin.user.index')}}"> <i class="fas fa-user-alt"></i> Users</a>
+        <a href="{{route('admin.role.index')}}" class="list-group-item {{setItemActive('admin.role.index')}}"> <i class="fas fa-users-cog"></i> Roles</a>
+        <a href="{{route('admin.permission.index')}}" class="list-group-item {{setItemActive('admin.permission.index')}}"> <i class="fas fa-tasks"></i> Permissions</a>
+        <hr class="divider">
         <a href="#" class="list-group-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> <i class="fas fa-sign-out-alt"></i>Sign out</a>
 
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

@@ -4,13 +4,13 @@
     <div class="container-fluid">
         <div class="row mb-4">
             <div class="col">
-                <a href="{{route('admin.teacher.create')}}" class="btn btn-primary">Add new teacher</a>
+                <a href="{{route('admin.user.create')}}" class="btn btn-primary">Add new user</a>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">Teachers</div>
+                    <div class="card-header">Users</div>
 
                     <div class="card-body">
                         <table class="table">
@@ -24,20 +24,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @if($teachers->count() === 0)
+                            @if($users->count() === 0)
                                 <tr>
                                     <td colspan="5" class="text-center pt-4">No records found.</td>
                                 </tr>
                             @endif
-                            @foreach($teachers as $teacher)
+                            @foreach($users as $user)
                                 <tr>
-                                    <td data-label="Firstname">{{$teacher->firstname ?? ""}}</td>
-                                    <td data-label="Lastname">{{$teacher->lastname ?? ""}}</td>
-                                    <td data-label="Email">{{$teacher->email ?? ""}}</td>
-                                    <td data-label="Edit"><a href="{{route('admin.teacher.edit',$teacher->id)}}" class="text-white"><i class="far fa-edit"></i></a></td>
+                                    <td data-label="Firstname">{{$user->firstname ?? ""}}</td>
+                                    <td data-label="Lastname">{{$user->lastname ?? ""}}</td>
+                                    <td data-label="Email">{{$user->email ?? ""}}</td>
+                                    <td data-label="Edit"><a href="{{route('admin.user.edit',$user->id)}}" class="text-white"><i class="far fa-edit"></i></a></td>
                                     <td data-label="Delete">
-                                        <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$teacher->id}}').submit();" href="#" class="text-white"><i class="far fa-trash-alt"></i></a>
-                                        <form action="{{route('admin.teacher.destroy',$teacher->id)}}" method="POST" class="d-none" id="delete-form-{{$teacher->id}}">
+                                        <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$user->id}}').submit();" href="#" class="text-white"><i class="far fa-trash-alt"></i></a>
+                                        <form action="{{route('admin.user.destroy',$user->id)}}" method="POST" class="d-none" id="delete-form-{{$user->id}}">
                                             {{method_field('DELETE')}}
                                             @csrf
                                         </form>
@@ -47,7 +47,7 @@
 
                             </tbody>
                         </table>
-                        <div class="m-auto">{{ $teachers->links() }}</div>
+                        <div class="m-auto">{{ $users->links() }}</div>
 
                     </div>
                 </div>

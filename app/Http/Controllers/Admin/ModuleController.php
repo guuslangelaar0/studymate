@@ -38,7 +38,7 @@ class ModuleController extends Controller
     {
         try {
             $data = $request->all();
-            $module = new Module($data);
+            $module = $this->module->create($data);
             $module = $module->save();
 
             $this->sync($module, $data);

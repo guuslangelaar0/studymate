@@ -31,7 +31,7 @@ class TeacherController extends Controller
     {
         try {
             $data = $request->all();
-            $teacher = new Teacher($data);
+            $teacher = $this->teacher->create($data);
             $teacher->save();
         } catch (\Exception $e) {
             return redirect()->back()->with('danger',$e->getMessage());

@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Role;
+use App\Models\User;
+use Illuminate\Http\Request;
+
+class UserController extends Controller
+{
+    protected $user;
+    protected $role;
+    public function __construct(User $user, Role $role)
+    {
+        $this->user = $user;
+        $this->role = $role;
+    }
+
+    public function index($pp = 15)
+    {
+        $users = $this->user->paginate(15);
+        return view('admin.user.index',compact('users'));
+    }
+
+
+    public function create()
+    {
+        $roles = $this->role->all();
+        return view('admin.user.form',compact('roles'));
+    }
+
+
+    public function store(Request $request)
+    {
+        try {
+            $data = $request->all();
+            $data = $this->encryptPassword($data);
+            $user = $this->user->create($data);
+            $user->save();
+
+            $this->syncRoles($user, $data);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('danger',$e->getMessage());
+        }
+
+        return redirect()->route('admin.user.index')->with('success','User Created');
+    }
+
+
+    public function show($id)
+    {
+        //
+    }
+
+
+    public function edit($id)
+    {
+        $user =  $this->user->find($id);
+        $roles = $this->role->all();
+        return view('admin.user.form',compact('user','roles'));
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $data = $request->all();
+            $user =  $this->user->find($id);
+            $data = $this->encryptPassword($data);
+            $user->update($data);
+
+            $this->syncRoles($user, $data);
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('danger',$e->getMessage());
+        }
+        return redirect()->route('admin.user.index')->with('success','User updated');
+    }
+
+
+    public function destroy($id)
+    {
+        try {
+            $this->user->find($id)->delete();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('danger', $e->getMessage());
+        }
+        return redirect()->route('admin.user.index')->with('success','User deleted');
+    }
+
+    private function encryptPassword($data){
+        if($data['password'] !== $data['confirm_password']){
+            throw new \Exception("Passwords do not match");
+        }
+        if(!empty($data['password'])){
+            $data['password'] = bcrypt($data['password']);
+        } else {
+            unset($data['password'], $data['confirm_password']);
+        }
+        return $data;
+    }
+
+    private function syncRoles($user, $data){
+        $data['roles'] = $data['roles'] ?? [];
+        $user->roles()->sync($data['roles']);
+    }
+}

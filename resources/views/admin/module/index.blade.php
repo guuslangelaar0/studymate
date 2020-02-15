@@ -34,8 +34,8 @@
                                     <td>{{$module->short_name ?? ""}}</td>
                                     <td data-label="Edit"><a href="{{route('admin.module.edit',$module->id)}}" class="text-white"><i class="far fa-edit"></i></a></td>
                                     <td data-label="Delete">
-                                        <a onclick="event.preventDefault(); document.getElementById('delete-form').submit();" href="#" class="text-white"><i class="far fa-trash-alt"></i></a>
-                                        <form action="{{route('admin.module.destroy',$module->id)}}" method="POST" class="d-none" id="delete-form">
+                                        <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$module->id}}').submit();" href="#" class="text-white"><i class="far fa-trash-alt"></i></a>
+                                        <form action="{{route('admin.user.destroy',$module->id)}}" method="POST" class="d-none" id="delete-form-{{$module->id}}">
                                             {{method_field('DELETE')}}
                                             @csrf
                                         </form>
