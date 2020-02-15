@@ -23,13 +23,16 @@
                             {{csrf_field()}}
                             {{ isset($teacher) ? method_field('PUT') : method_field('POST')}}
                             <div class="form-group row">
-                                <input type="text" class="form-control" name="firstname" placeholder="First name" value="{{$teacher->firstname ?? ""}}">
+                                <label for="firstname">First name</label>
+                                <input type="text" id="firstname" class="form-control" name="firstname" placeholder="First name" value="{{$teacher->firstname ?? ""}}">
                             </div>
                             <div class="form-group row">
-                                <input type="text" class="form-control" name="lastname" placeholder="Last name" value="{{$teacher->lastname ?? ""}}">
+                                <label for="lastname">Last name</label>
+                                <input type="text" id="lastname" class="form-control" name="lastname" placeholder="Last name" value="{{$teacher->lastname ?? ""}}">
                             </div>
                             <div class="form-group row">
-                                <input type="email" class="form-control" name="email" placeholder="email" value="{{$teacher->email ?? ""}}">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" class="form-control" name="email" placeholder="email" value="{{$teacher->email ?? ""}}">
                             </div>
                             <div class="form-group row">
                                 <a href="{{route('admin.teacher.index')}}" class="btn btn-secondary btn-block">Cancel</a>
