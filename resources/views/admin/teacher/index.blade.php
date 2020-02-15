@@ -2,11 +2,13 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row mb-4">
-            <div class="col">
-                <a href="{{route('admin.teacher.create')}}" class="btn btn-primary">Add new teacher</a>
+        @if(checkPermissions('teacher.create'))
+            <div class="row mb-4">
+                <div class="col">
+                    <a href="{{route('admin.teacher.create')}}" class="btn btn-primary">Add new teacher</a>
+                </div>
             </div>
-        </div>
+        @endif
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card">
@@ -34,13 +36,19 @@
                                     <td data-label="Firstname">{{$teacher->firstname ?? ""}}</td>
                                     <td data-label="Lastname">{{$teacher->lastname ?? ""}}</td>
                                     <td data-label="Email">{{$teacher->email ?? ""}}</td>
-                                    <td data-label="Edit"><a href="{{route('admin.teacher.edit',$teacher->id)}}" class="text-white"><i class="far fa-edit"></i></a></td>
+                                    <td data-label="Edit">
+                                        @if(checkPermissions('teacher.update',false))
+                                            <a href="{{route('admin.teacher.edit',$teacher->id)}}" class="text-white"><i class="far fa-edit"></i></a>
+                                        @endif
+                                    </td>
                                     <td data-label="Delete">
-                                        <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$teacher->id}}').submit();" href="#" class="text-white"><i class="far fa-trash-alt"></i></a>
-                                        <form action="{{route('admin.teacher.destroy',$teacher->id)}}" method="POST" class="d-none" id="delete-form-{{$teacher->id}}">
-                                            {{method_field('DELETE')}}
-                                            @csrf
-                                        </form>
+                                        @if(checkPermissions('teacher.delete',false))
+                                            <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$teacher->id}}').submit();" href="#" class="text-white"><i class="far fa-trash-alt"></i></a>
+                                            <form action="{{route('admin.teacher.destroy',$teacher->id)}}" method="POST" class="d-none" id="delete-form-{{$teacher->id}}">
+                                                {{method_field('DELETE')}}
+                                                @csrf
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

@@ -13,7 +13,7 @@ class PermissionsTableSeeder extends Seeder
     public function run()
     {
         $permissions = [
-            ['name' => 'admin.index','label' => 'Admin overview page'],
+            ['name' => 'admin.overview','label' => 'Admin overview page'],
 
             ['name' => 'user.overview','label' => 'User overview page'],
             ['name' => 'user.create','label' => 'User create page'],

@@ -16,6 +16,7 @@ class TeacherController extends Controller
 
     public function index($pp = 15)
     {
+        checkPermissions('teacher.overview');
         $teachers = $this->teacher->paginate(15);
         return view('admin.teacher.index',compact('teachers'));
     }
@@ -23,12 +24,14 @@ class TeacherController extends Controller
 
     public function create()
     {
+        checkPermissions('teacher.create');
         return view('admin.teacher.form');
     }
 
 
     public function store(Request $request)
     {
+        checkPermissions('teacher.create');
         try {
             $data = $request->all();
             $teacher = $this->teacher->create($data);
@@ -49,6 +52,7 @@ class TeacherController extends Controller
 
     public function edit($id)
     {
+        checkPermissions('teacher.update');
         $teacher =  $this->teacher->find($id);
         return view('admin.teacher.form',compact('teacher'));
     }
@@ -56,6 +60,7 @@ class TeacherController extends Controller
 
     public function update(Request $request, $id)
     {
+        checkPermissions('teacher.update');
         try {
             $data = $request->all();
             $teacher =  $this->teacher->find($id);
@@ -70,6 +75,7 @@ class TeacherController extends Controller
 
     public function destroy($id)
     {
+        checkPermissions('teacher.delete');
         try {
             $this->teacher->find($id)->delete();
         } catch (\Exception $e) {

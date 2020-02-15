@@ -2,11 +2,13 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row mb-4">
-            <div class="col">
-                <a href="{{route('admin.role.create')}}" class="btn btn-primary">Add new role</a>
+        @if(checkPermissions('role.create',false))
+            <div class="row mb-4">
+                <div class="col">
+                    <a href="{{route('admin.role.create')}}" class="btn btn-primary">Add new role</a>
+                </div>
             </div>
-        </div>
+        @endif
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card">
@@ -32,13 +34,19 @@
                                 <tr>
                                     <td data-label="Firstname">{{$role->name ?? ""}}</td>
                                     <td data-label="Lastname">{{$role->label ?? ""}}</td>
-                                    <td data-label="Edit"><a href="{{route('admin.role.edit',$role->id)}}" class="text-white"><i class="far fa-edit"></i></a></td>
+                                    <td data-label="Edit">
+                                        @if(checkPermissions('role.update',false))
+                                            <a href="{{route('admin.role.edit',$role->id)}}" class="text-white"><i class="far fa-edit"></i></a>
+                                        @endif
+                                    </td>
                                     <td data-label="Delete">
+                                        @if(checkPermissions('role.delete',false))
                                         <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$role->id}}').submit();" href="#" class="text-white"><i class="far fa-trash-alt"></i></a>
                                         <form action="{{route('admin.role.destroy',$role->id)}}" method="POST" class="d-none" id="delete-form-{{$role->id}}">
                                             {{method_field('DELETE')}}
                                             @csrf
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

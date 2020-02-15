@@ -21,7 +21,7 @@ class ModuleController extends Controller
 
     public function index()
     {
-
+        checkPermissions('module.overview');
         $modules = $this->module->all();
         return view('admin.module.index',compact('modules'));
     }
@@ -29,6 +29,7 @@ class ModuleController extends Controller
 
     public function create()
     {
+        checkPermissions('module.create');
         $teachers = $this->teacher->all();
         return view('admin.module.form', compact('teachers'));
     }
@@ -36,6 +37,7 @@ class ModuleController extends Controller
 
     public function store(Request $request)
     {
+        checkPermissions('module.create');
         try {
             $data = $request->all();
             $module = $this->module->create($data);
@@ -59,6 +61,7 @@ class ModuleController extends Controller
 
     public function edit($id)
     {
+        checkPermissions('module.update');
         $teachers = $this->teacher->all();
         $module = $this->module->find($id);
         return view('admin.module.form',compact('module', 'teachers'));
@@ -67,6 +70,7 @@ class ModuleController extends Controller
 
     public function update(Request $request, $id)
     {
+        checkPermissions('module.update');
         try {
             $data = $request->all();
             $module = $this->module->find($id);
@@ -83,6 +87,7 @@ class ModuleController extends Controller
 
     public function destroy($id)
     {
+        checkPermissions('module.delete');
         try {
             $this->module->find($id)->delete();
         } catch (\Exception $e) {

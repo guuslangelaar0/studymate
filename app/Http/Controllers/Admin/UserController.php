@@ -19,6 +19,7 @@ class UserController extends Controller
 
     public function index($pp = 15)
     {
+        checkPermissions('user.overview');
         $users = $this->user->paginate(15);
         return view('admin.user.index',compact('users'));
     }
@@ -26,6 +27,7 @@ class UserController extends Controller
 
     public function create()
     {
+        checkPermissions('user.create');
         $roles = $this->role->all();
         return view('admin.user.form',compact('roles'));
     }
@@ -33,6 +35,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        checkPermissions('user.create');
         try {
             $data = $request->all();
             $data = $this->encryptPassword($data);
@@ -56,6 +59,7 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        checkPermissions('user.update');
         $user =  $this->user->find($id);
         $roles = $this->role->all();
         return view('admin.user.form',compact('user','roles'));
@@ -64,6 +68,7 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+        checkPermissions('user.update');
         try {
             $data = $request->all();
             $user =  $this->user->find($id);
@@ -81,6 +86,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
+        checkPermissions('user.delete');
         try {
             $this->user->find($id)->delete();
         } catch (\Exception $e) {

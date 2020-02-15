@@ -16,6 +16,7 @@ class PermissionController extends Controller
 
     public function index($pp = 15)
     {
+        checkPermissions('permission.overview');
         $permissions = $this->permission->paginate(15);
         return view('admin.permission.index',compact('permissions'));
     }
@@ -23,12 +24,14 @@ class PermissionController extends Controller
 
     public function create()
     {
+        checkPermissions('permission.create');
         return view('admin.permission.form');
     }
 
 
     public function store(Request $request)
     {
+        checkPermissions('permission.create');
         try {
             $data = $request->all();
             $permission = $this->permission->create($data);
@@ -49,6 +52,7 @@ class PermissionController extends Controller
 
     public function edit($id)
     {
+        checkPermissions('permission.update');
         $permission =  $this->permission->find($id);
         return view('admin.permission.form',compact('permission'));
     }
@@ -56,6 +60,7 @@ class PermissionController extends Controller
 
     public function update(Request $request, $id)
     {
+        checkPermissions('permission.update');
         try {
             $data = $request->all();
             $permission =  $this->permission->find($id);
@@ -70,6 +75,7 @@ class PermissionController extends Controller
 
     public function destroy($id)
     {
+        checkPermissions('permission.delete');
         try {
             $this->permission->find($id)->delete();
         } catch (\Exception $e) {

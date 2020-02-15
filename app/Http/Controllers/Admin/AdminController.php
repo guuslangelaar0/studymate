@@ -16,7 +16,7 @@ class AdminController extends Controller
     }
 
     public function index(){
-
+        checkPermissions('admin.overview');
 
         return view('admin.index');
     }

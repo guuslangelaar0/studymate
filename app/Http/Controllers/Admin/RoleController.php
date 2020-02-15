@@ -19,6 +19,7 @@ class RoleController extends Controller
 
     public function index($pp = 15)
     {
+        checkPermissions('permission.overview');
         $roles = $this->role->paginate(15);
         return view('admin.role.index',compact('roles'));
     }
@@ -26,6 +27,7 @@ class RoleController extends Controller
 
     public function create()
     {
+        checkPermissions('permission.create');
         $permissions = $this->permission->all();
         return view('admin.role.form',compact('permissions'));
     }
@@ -33,6 +35,7 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
+        checkPermissions('permission.create');
         try {
             $data = $request->all();
             $role = $this->role->create($data);
@@ -55,6 +58,7 @@ class RoleController extends Controller
 
     public function edit($id)
     {
+        checkPermissions('permission.update');
         $permissions = $this->permission->all();
         $role =  $this->role->find($id);
         return view('admin.role.form',compact('role','permissions'));
@@ -63,6 +67,7 @@ class RoleController extends Controller
 
     public function update(Request $request, $id)
     {
+        checkPermissions('permission.update');
         try {
             $data = $request->all();
             $role =  $this->role->find($id);
@@ -79,6 +84,7 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
+        checkPermissions('permission.delete');
         try {
             $this->role->find($id)->delete();
         } catch (\Exception $e) {
