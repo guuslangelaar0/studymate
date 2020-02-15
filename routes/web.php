@@ -62,6 +62,9 @@ Route::middleware('auth')->prefix('admin')->group(function(){
         Route::put('/{id}/update','Admin\UserController@update')->name('admin.user.update');
         Route::post('/store','Admin\UserController@store')->name('admin.user.store');
         Route::delete('/{id}/destroy','Admin\UserController@destroy')->name('admin.user.destroy');
+
+        Route::post('/{id}/loginAsUser','Admin\UserController@loginAsUser')->name('admin.user.loginAsUser');
+        Route::post('/returnToOwnUser','Admin\UserController@returnToOwnUser')->name('admin.user.returnToOwnUser');
     });
 
     Route::prefix('roles')->group(function (){

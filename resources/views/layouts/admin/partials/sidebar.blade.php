@@ -28,6 +28,12 @@
             <a href="{{route('admin.permission.index')}}" class="list-group-item {{setItemActive('admin.permission.index')}}"> <i class="fas fa-tasks"></i> Permissions</a>
         @endif
         <hr class="divider">
+        @if(Session::has('loggedInAs'))
+            <a href="#" class="list-group-item" onclick="event.preventDefault(); document.getElementById('returnToOwnUser').submit();"> <i class="fas fa-sign-in-alt"></i>Back to your account</a>
+            <form id="returnToOwnUser" action="{{ route('admin.user.returnToOwnUser',Session::get('loggedInAs')) }}" method="POST" class="d-none">
+                @csrf
+            </form>
+        @endif
         <a href="#" class="list-group-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> <i class="fas fa-sign-out-alt"></i>Sign out</a>
 
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

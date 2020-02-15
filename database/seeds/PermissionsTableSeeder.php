@@ -19,6 +19,7 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'user.create','label' => 'User create page'],
             ['name' => 'user.update','label' => 'User update page'],
             ['name' => 'user.delete','label' => 'User delete page'],
+            ['name' => 'user.login_as','label' => 'Login as another user'],
 
             ['name' => 'teacher.overview','label' => 'Teacher overview page'],
             ['name' => 'teacher.create','label' => 'Teacher create page'],

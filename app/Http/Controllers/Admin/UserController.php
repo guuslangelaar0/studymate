@@ -111,4 +111,19 @@ class UserController extends Controller
         $data['roles'] = $data['roles'] ?? [];
         $user->roles()->sync($data['roles']);
     }
+
+    public function loginAsUser(Request $request, $user_id){
+        checkPermissions('user.login_as');
+        $request->session()->push('loggedInAs', auth()->user()->id);
+        auth()->loginUsingId($user_id);
+        return redirect()->route('guest.index');
+    }
+
+    public function returnToOwnUser(Request $request){
+        checkPermissions('user.login_as');
+        $user_id = $request->session()->pull('loggedInAs');
+        $request->session()->forget('loggedInAs');
+        auth()->loginUsingId($user_id);
+        return redirect()->route('guest.index');
+    }
 }

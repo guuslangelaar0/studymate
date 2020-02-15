@@ -23,12 +23,13 @@
                                     <th scope="col">Email</th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
                             @if($users->count() === 0)
                                 <tr>
-                                    <td colspan="5" class="text-center pt-4">No records found.</td>
+                                    <td colspan="6" class="text-center pt-4">No records found.</td>
                                 </tr>
                             @endif
                             @foreach($users as $user)
@@ -36,6 +37,15 @@
                                     <td data-label="Firstname">{{$user->firstname ?? ""}}</td>
                                     <td data-label="Lastname">{{$user->lastname ?? ""}}</td>
                                     <td data-label="Email">{{$user->email ?? ""}}</td>
+                                    <td data-label="Login As">
+                                        @if($user->id != auth()->user()->id && checkPermissions('user.login_as',false))
+                                        <a title="Login as user" onclick="event.preventDefault(); document.getElementById('userLogin-{{$user->id}}').submit();" href="#" class="text-white"><i class="fas fa-sign-in-alt"></i></a>
+                                        <form action="{{route('admin.user.loginAsUser',$user->id)}}" method="POST" class="d-none" id="userLogin-{{$user->id}}">
+                                            {{method_field('POST')}}
+                                            @csrf
+                                        </form>
+                                        @endif
+                                    </td>
                                     <td data-label="Edit">
                                         @if(checkPermissions('teacher.update',false))
                                             <a href="{{route('admin.user.edit',$user->id)}}" class="text-white"><i class="far fa-edit"></i></a>

@@ -54,6 +54,13 @@
                                         <a class="dropdown-item" href="{{route('admin.index')}}">Admin Environment</a>
                                     @endif
                                     <a class="dropdown-item" href="{{route('admin.index')}}">Deadline Management</a>
+
+                                    @if(Session::has('loggedInAs'))
+                                        <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('returnToOwnUser').submit();">Back to your account</a>
+                                        <form id="returnToOwnUser" action="{{ route('admin.user.returnToOwnUser',Session::get('loggedInAs')) }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
