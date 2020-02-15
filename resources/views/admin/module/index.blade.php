@@ -18,18 +18,28 @@
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Short name</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
                             </tr>
                             </thead>
                             <tbody>
                             @if($modules->count() === 0)
                                 <tr>
-                                    <td colspan="2" class="text-center pt-4">No records found.</td>
+                                    <td colspan="4" class="text-center pt-4">No records found.</td>
                                 </tr>
                             @endif
                             @foreach($modules as $module)
                                 <tr>
                                     <td>{{$module->name ?? ""}}</td>
                                     <td>{{$module->short_name ?? ""}}</td>
+                                    <td data-label="Edit"><a href="{{route('admin.module.edit',$module->id)}}" class="text-white"><i class="far fa-edit"></i></a></td>
+                                    <td data-label="Delete">
+                                        <a onclick="event.preventDefault(); document.getElementById('delete-form').submit();" href="#" class="text-white"><i class="far fa-trash-alt"></i></a>
+                                        <form action="{{route('admin.module.destroy',$module->id)}}" method="POST" class="d-none" id="delete-form">
+                                            {{method_field('DELETE')}}
+                                            @csrf
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

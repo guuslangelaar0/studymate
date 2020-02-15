@@ -10889,11 +10889,26 @@ a.text-dark:focus {
 }
 
 .admin-layout {
+  height: auto;
   overflow-x: hidden;
 }
 
 .admin-layout #app.toggled #sidebar-wrapper {
   margin-left: 0;
+}
+
+.admin-layout #app .content {
+  min-width: 100vw;
+}
+
+.admin-layout #app .content .navbar {
+  border-bottom: 1px solid black;
+  height: 59.4px;
+}
+
+.admin-layout #app .content .navbar .navbar-toggler {
+  border: none;
+  outline: none;
 }
 
 .admin-layout #app #sidebar-wrapper {
@@ -10939,16 +10954,12 @@ a.text-dark:focus {
   width: 20px;
 }
 
-.admin-layout #app main {
-  min-width: 100vw;
-}
-
 @media (min-width: 768px) {
   .admin-layout #app #sidebar-wrapper {
     margin-left: 0;
   }
 
-  .admin-layout #app main {
+  .admin-layout #app .content {
     min-width: 0;
     width: 100%;
   }
@@ -10998,6 +11009,7 @@ html,
 
 #app {
   background: linear-gradient(47deg, black 0%, #141414 50%, #323232 100%);
+  background: -o-linear-gradient(47deg, black 0%, #141414 50%, #323232 100%);
 }
 
 .card {
@@ -11012,6 +11024,11 @@ html,
 
 .card .card-body {
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+.card .card-body .small-form {
+  width: 400px;
+  max-width: 80%;
 }
 
 table {

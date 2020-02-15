@@ -12,4 +12,8 @@ class Teacher extends Model
     ];
     public $timestamps = false;
 
+    public function modules(){
+        return $this->belongsToMany(Module::class, 'module_teachers')->withPivot('coordinator');
+    }
+
 }

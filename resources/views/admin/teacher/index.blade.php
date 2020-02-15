@@ -36,7 +36,7 @@
                                     <td data-label="Email">{{$teacher->email ?? ""}}</td>
                                     <td data-label="Edit"><a href="{{route('admin.teacher.edit',$teacher->id)}}" class="text-white"><i class="far fa-edit"></i></a></td>
                                     <td data-label="Delete">
-                                        <a onclick="event.preventDefault(); document.getElementById('delete-form').submit();" class="text-white"><i class="far fa-trash-alt"></i></a>
+                                        <a onclick="event.preventDefault(); document.getElementById('delete-form').submit();" href="#" class="text-white"><i class="far fa-trash-alt"></i></a>
                                         <form action="{{route('admin.teacher.destroy',$teacher->id)}}" method="POST" class="d-none" id="delete-form">
                                             {{method_field('DELETE')}}
                                             @csrf

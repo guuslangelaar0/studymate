@@ -20,5 +20,14 @@ class UsersTableSeeder extends Seeder
             $user->password = bcrypt('test123');
             $user->save();
         }
+
+        if(User::where('email','royberris@gmail.com')->first() === null){
+            $user = new User();
+            $user->firstname = 'Roy';
+            $user->lastname = 'Berris';
+            $user->email = 'royberris@gmail.com';
+            $user->password = bcrypt('test123');
+            $user->save();
+        }
     }
 }

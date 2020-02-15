@@ -10,10 +10,16 @@
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">Create new Teacher</div>
+                    <div class="card-header">
+                        @if(isset($teacher))
+                            Update teacher: {{$teacher->firstname}} {{ $teacher->lastname }}
+                        @else
+                            Create new Teacher
+                        @endif
+                    </div>
 
                     <div class="card-body">
-                        <form action="{{ isset($teacher) ? route('admin.teacher.update',$teacher->id) : route('admin.teacher.store')}}" method="post" class="col-6 m-auto">
+                        <form action="{{ isset($teacher) ? route('admin.teacher.update',$teacher->id) : route('admin.teacher.store')}}" method="post" class="small-form m-auto">
                             {{csrf_field()}}
                             {{ isset($teacher) ? method_field('PUT') : method_field('POST')}}
                             <div class="form-group row">

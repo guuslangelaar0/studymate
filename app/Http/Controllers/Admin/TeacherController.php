@@ -8,10 +8,15 @@ use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
+    protected $teacher;
+    public function __construct(Teacher $teacher)
+    {
+        $this->teacher = $teacher;
+    }
 
     public function index($pp = 15)
     {
-        $teachers = Teacher::paginate(15);
+        $teachers = $this->teacher->paginate(15);
         return view('admin.teacher.index',compact('teachers'));
     }
 
@@ -44,7 +49,7 @@ class TeacherController extends Controller
 
     public function edit($id)
     {
-        $teacher = Teacher::where('id',$id)->first();
+        $teacher =  $this->teacher->find($id);
         return view('admin.teacher.form',compact('teacher'));
     }
 
@@ -53,7 +58,7 @@ class TeacherController extends Controller
     {
         try {
             $data = $request->all();
-            $teacher = Teacher::find($id);
+            $teacher =  $this->teacher->find($id);
             $teacher->update($data);
 
         } catch (\Exception $e) {
@@ -66,8 +71,7 @@ class TeacherController extends Controller
     public function destroy($id)
     {
         try {
-            $teacher = Teacher::find($id);
-            $teacher->delete();
+            $this->teacher->find($id)->delete();
         } catch (\Exception $e) {
             return redirect()->back()->with('danger', $e->getMessage());
         }

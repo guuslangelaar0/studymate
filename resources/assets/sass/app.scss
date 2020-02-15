@@ -21,7 +21,12 @@ body, html, #app{
 }
 
 #app{
-    background: linear-gradient(47deg, rgba(0,0,0,1) 0%, rgba(20,20,20,1) 50%, rgba(50,50,50,1) 100%);
+    $gradient: 47deg, rgba(0,0,0,1) 0%, rgba(20,20,20,1) 50%, rgba(50,50,50,1) 100%;
+    background: linear-gradient($gradient);
+    background: -moz-linear-gradient($gradient);
+    background: -webkit-linear-gradient($gradient);
+    background: -ms-linear-gradient($gradient);
+    background: -o-linear-gradient($gradient);
 }
 
 .card{
@@ -35,6 +40,11 @@ body, html, #app{
     }
     .card-body{
         background-color: rgba(0,0,0,.2);
+
+        .small-form{
+            width: 400px;
+            max-width: 80%;
+        }
     }
 }
 

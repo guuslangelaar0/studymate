@@ -40,9 +40,9 @@ Route::middleware('auth')->prefix('admin')->group(function(){
         Route::get('/{id}/show','Admin\ModuleController@show')->name('admin.module.show');
         Route::get('/{id}/edit','Admin\ModuleController@edit')->name('admin.module.edit');
 
-        Route::put('/update','Admin\ModuleController@update')->name('admin.module.update');
+        Route::put('/{id}/update','Admin\ModuleController@update')->name('admin.module.update');
         Route::post('/store','Admin\ModuleController@store')->name('admin.module.store');
-        Route::delete('/destroy','Admin\ModuleController@destroy')->name('admin.module.destroy');
+        Route::delete('/{id}/destroy','Admin\ModuleController@destroy')->name('admin.module.destroy');
     });
 
 

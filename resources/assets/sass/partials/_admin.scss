@@ -1,9 +1,22 @@
 .admin-layout{
+    height: auto;
     overflow-x: hidden;
 
     #app{
         &.toggled #sidebar-wrapper {
             margin-left: 0;
+        }
+        .content {
+            min-width: 100vw;
+            .navbar{
+                border-bottom: 1px solid black;
+                height: 59.4px;
+                .navbar-toggler{
+                    border: none;
+                    outline: none;
+                }
+            }
+
         }
         #sidebar-wrapper {
             min-height: 100vh;
@@ -49,9 +62,6 @@
                 }
             }
         }
-        main {
-            min-width: 100vw;
-        }
     }
 
     @media (min-width: 768px) {
@@ -60,7 +70,7 @@
                 margin-left: 0;
             }
 
-            main {
+            .content {
                 min-width: 0;
                 width: 100%;
             }

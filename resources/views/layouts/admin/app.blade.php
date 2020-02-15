@@ -21,10 +21,14 @@
 
         @include('layouts.admin.partials.sidebar')
 
-        <main class="p-lg-5 py-3">
-            @include('layouts.admin.partials.flash-message')
-            @yield('content')
-        </main>
+        <div class="content">
+            @include('layouts.admin.partials.navbar')
+            <main class="p-lg-5 py-3">
+                @include('layouts.admin.partials.flash-message')
+                @yield('content')
+            </main>
+        </div>
+
 
 
     </div>
