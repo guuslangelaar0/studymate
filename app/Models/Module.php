@@ -13,12 +13,16 @@ class Module extends Model
     public $timestamps = false;
 
 
-    public function teachers(){
+    public function teachers() {
         return $this->belongsToMany(Teacher::class, 'module_teachers')->withPivot('coordinator');
     }
 
-    public function coordinators(){
+    public function coordinators() {
         return $this->belongsToMany(Teacher::class, 'module_teachers')->withPivot('coordinator')->where('coordinator', true);
+    }
+
+    public function exams() {
+        return $this->hasMany(Exam::class);
     }
 
 }

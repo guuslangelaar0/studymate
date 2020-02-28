@@ -3,35 +3,35 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Exam;
 use App\Models\Module;
-use App\Models\Teacher;
 use Illuminate\Http\Request;
 
-class ModuleController extends Controller
+class ExamController extends Controller
 {
 
     protected $module;
-    protected $teacher;
+    protected $exam;
 
-    public function __construct(Module $module, Teacher $teacher)
+    public function __construct(Module $module, Exam $exam)
     {
         $this->module = $module;
-        $this->teacher = $teacher;
+        $this->exam = $exam;
     }
 
-    public function index()
+    public function index($module_id)
     {
-        checkPermissions('module.overview');
-        $modules = $this->module->all();
-        return view('admin.module.index',compact('modules'));
+        $module = $this->module->find($module_id);
+        $exams = $module->exams;
+        return view('admin.module.exams.index',compact('module', 'exams'));
     }
 
 
-    public function create()
+    public function create($module_id)
     {
         checkPermissions('module.create');
-        $teachers = $this->teacher->all();
-        return view('admin.module.form', compact('teachers'));
+        $module = $this->module->find($module_id);
+        return view('admin.module.exams.form', compact('module'));
     }
 
 

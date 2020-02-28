@@ -38,7 +38,7 @@
                                     <td data-label="Lastname">{{$user->lastname ?? ""}}</td>
                                     <td data-label="Email">{{$user->email ?? ""}}</td>
                                     <td data-label="Login As">
-                                        @if($user->id != auth()->user()->id && checkPermissions('user.login_as',false))
+                                        @if($user->id != auth()->user()->id && $user->id !== Arr::get(session('loggedInAs'),'0',0) && checkPermissions('user.login_as',false))
                                         <a title="Login as user" onclick="event.preventDefault(); document.getElementById('userLogin-{{$user->id}}').submit();" href="#" class="text-white"><i class="fas fa-sign-in-alt"></i></a>
                                         <form action="{{route('admin.user.loginAsUser',$user->id)}}" method="POST" class="d-none" id="userLogin-{{$user->id}}">
                                             {{method_field('POST')}}
@@ -47,12 +47,12 @@
                                         @endif
                                     </td>
                                     <td data-label="Edit">
-                                        @if(checkPermissions('teacher.update',false))
+                                        @if(checkPermissions('user.update',false))
                                             <a href="{{route('admin.user.edit',$user->id)}}" class="text-white"><i class="far fa-edit"></i></a>
                                         @endif
                                     </td>
                                     <td data-label="Delete">
-                                        @if(checkPermissions('teacher.delete',false))
+                                        @if(checkPermissions('user.delete',false))
                                             <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$user->id}}').submit();" href="#" class="text-white"><i class="far fa-trash-alt"></i></a>
                                             <form action="{{route('admin.user.destroy',$user->id)}}" method="POST" class="d-none" id="delete-form-{{$user->id}}">
                                                 {{method_field('DELETE')}}

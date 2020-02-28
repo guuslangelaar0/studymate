@@ -16,7 +16,10 @@ class CreateExamsTable extends Migration
         Schema::create('exams', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('module_id')->unsigned();
+            $table->string('label')->nullable();
             $table->enum('type',['assessment','prelim']);
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
 
             $table->foreign('module_id')->references('id')->on('modules')->onDelete('cascade');
         });

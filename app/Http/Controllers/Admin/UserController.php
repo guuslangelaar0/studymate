@@ -120,7 +120,7 @@ class UserController extends Controller
     }
 
     public function returnToOwnUser(Request $request){
-        checkPermissions('user.login_as');
+
         $user_id = $request->session()->pull('loggedInAs');
         $request->session()->forget('loggedInAs');
         auth()->loginUsingId($user_id);

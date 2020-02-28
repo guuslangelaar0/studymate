@@ -49507,20 +49507,23 @@ $("#menu-toggle").click(function (e) {
   $("#app").toggleClass("toggled");
 });
 var btn = document.getElementById('selectAll');
-btn.addEventListener("click", function () {
-  console.log(btn.checked);
-  var checkboxes = document.getElementsByClassName('form-check');
 
-  for (var i = 0; i < checkboxes.length - 1; i++) {
-    if (btn.checked) {
-      document.getElementById('selectAll-label').innerText = "Deselect All";
-      checkboxes[i].checked = true;
-    } else {
-      document.getElementById('selectAll-label').innerText = "Select All";
-      checkboxes[i].checked = false;
+if (btn !== null) {
+  btn.addEventListener("click", function () {
+    console.log(btn.checked);
+    var checkboxes = document.getElementsByClassName('form-check');
+
+    for (var i = 0; i < checkboxes.length - 1; i++) {
+      if (btn.checked) {
+        document.getElementById('selectAll-label').innerText = "Deselect All";
+        checkboxes[i].checked = true;
+      } else {
+        document.getElementById('selectAll-label').innerText = "Select All";
+        checkboxes[i].checked = false;
+      }
     }
-  }
-});
+  });
+}
 
 /***/ }),
 
