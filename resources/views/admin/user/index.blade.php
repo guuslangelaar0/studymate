@@ -48,12 +48,12 @@
                                     </td>
                                     <td data-label="Edit">
                                         @if(checkPermissions('user.update',false))
-                                            <a href="{{route('admin.user.edit',$user->id)}}" class="text-white"><i class="far fa-edit"></i></a>
+                                            <a href="{{route('admin.user.edit',$user->id)}}" class="text-white"><i class="fas fa-edit"></i></a>
                                         @endif
                                     </td>
                                     <td data-label="Delete">
                                         @if(checkPermissions('user.delete',false))
-                                            <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$user->id}}').submit();" href="#" class="text-white"><i class="far fa-trash-alt"></i></a>
+                                            <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$user->id}}').submit();" href="#" class="text-white"><i class="fas fa-trash-alt"></i></a>
                                             <form action="{{route('admin.user.destroy',$user->id)}}" method="POST" class="d-none" id="delete-form-{{$user->id}}">
                                                 {{method_field('DELETE')}}
                                                 @csrf

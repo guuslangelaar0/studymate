@@ -36,12 +36,12 @@
                                     <td data-label="Lastname">{{$permission->label ?? ""}}</td>
                                     <td data-label="Edit">
                                         @if(checkPermissions('permission.update',false))
-                                            <a href="{{route('admin.permission.edit',$permission->id)}}" class="text-white"><i class="far fa-edit"></i></a>
+                                            <a href="{{route('admin.permission.edit',$permission->id)}}" class="text-white"><i class="fas fa-edit"></i></a>
                                         @endif
                                     </td>
                                     <td data-label="Delete">
                                         @if(checkPermissions('permission.delete',false))
-                                            <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$permission->id}}').submit();" href="#" class="text-white"><i class="far fa-trash-alt"></i></a>
+                                            <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$permission->id}}').submit();" href="#" class="text-white"><i class="fas fa-trash-alt"></i></a>
                                             <form action="{{route('admin.permission.destroy',$permission->id)}}" method="POST" class="d-none" id="delete-form-{{$permission->id}}">
                                                 {{method_field('DELETE')}}
                                                 @csrf

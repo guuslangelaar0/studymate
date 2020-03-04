@@ -38,12 +38,12 @@
                                     <td data-label="Email">{{$teacher->email ?? ""}}</td>
                                     <td data-label="Edit">
                                         @if(checkPermissions('teacher.update',false))
-                                            <a href="{{route('admin.teacher.edit',$teacher->id)}}" class="text-white"><i class="far fa-edit"></i></a>
+                                            <a href="{{route('admin.teacher.edit',$teacher->id)}}" class="text-white"><i class="fas fa-edit"></i></a>
                                         @endif
                                     </td>
                                     <td data-label="Delete">
                                         @if(checkPermissions('teacher.delete',false))
-                                            <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$teacher->id}}').submit();" href="#" class="text-white"><i class="far fa-trash-alt"></i></a>
+                                            <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$teacher->id}}').submit();" href="#" class="text-white"><i class="fas fa-trash-alt"></i></a>
                                             <form action="{{route('admin.teacher.destroy',$teacher->id)}}" method="POST" class="d-none" id="delete-form-{{$teacher->id}}">
                                                 {{method_field('DELETE')}}
                                                 @csrf

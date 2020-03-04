@@ -22,26 +22,28 @@
                                 <th scope="col">Short name</th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
+                                <th scope="col"></th>
                             </tr>
                             </thead>
                             <tbody>
                             @if($modules->count() === 0)
                                 <tr>
-                                    <td colspan="4" class="text-center pt-4">No records found.</td>
+                                    <td colspan="5" class="text-center pt-4">No records found.</td>
                                 </tr>
                             @endif
                             @foreach($modules as $module)
                                 <tr>
                                     <td>{{$module->name ?? ""}}</td>
                                     <td>{{$module->short_name ?? ""}}</td>
+                                    <td><a href="{{route('admin.module.exam.index',$module->id)}}" class="btn btn-primary">Exams</a></td>
                                     <td data-label="Edit">
                                         @if(checkPermissions('module.update',false))
-                                            <a href="{{route('admin.module.edit',$module->id)}}" class="text-white"><i class="far fa-edit"></i></a>
+                                            <a href="{{route('admin.module.edit',$module->id)}}" class="text-white"><i class="fas fa-edit"></i></a>
                                         @endif
                                     </td>
                                     <td data-label="Delete">
                                         @if(checkPermissions('module.delete',false))
-                                        <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$module->id}}').submit();" href="#" class="text-white"><i class="far fa-trash-alt"></i></a>
+                                        <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$module->id}}').submit();" href="#" class="text-white"><i class="fas fa-trash-alt"></i></a>
                                         <form action="{{route('admin.module.destroy',$module->id)}}" method="POST" class="d-none" id="delete-form-{{$module->id}}">
                                             {{method_field('DELETE')}}
                                             @csrf

@@ -16,9 +16,10 @@
                         <form action="{{isset($exam) ? route('admin.module.exam.update',['module_id' => $module->id, 'id' => $exam->id]) : route('admin.module.exam.store',$module->id)}}" method="post" class="small-form m-auto">
                             {{isset($exam) ? method_field('PUT') : method_field('POST')}}
                             {{csrf_field()}}
+                            <input type="hidden" name="module_id" value="{{$module->id}}">
                             <div class="form-group row">
                                 <label for="label">Label</label>
-                                <input type="text" id="label" class="form-control" name="label" placeholder="Name" value="{{$exam->name ?? ""}}">
+                                <input type="text" id="label" class="form-control" name="label" placeholder="Label" value="{{old('label',$exam->label ?? "" )}}">
                             </div>
                             <div class="form-group row">
                                 <label for="type">Type</label>
@@ -30,11 +31,11 @@
                             </div>
                             <div class="form-group row">
                                 <label for="start_date">Start Date</label>
-                                <input type="datetime-local" id="start_date" class="form-control" name="start_date" >
+                                <input type="datetime-local" id="start_date" class="form-control" name="start_date" value="{{str_replace("UTC", 'T', date("yy-m-dTh:m"))}}">
                             </div>
                             <div class="form-group row">
                                 <label for="end_date">End Date</label>
-                                <input type="datetime-local" id="end_date" class="form-control" name="end_date" >
+                                <input type="datetime-local" id="end_date" class="form-control" name="end_date" value="{{str_replace("UTC", 'T', date("yy-m-dTh:m", strtotime('+7 days')))}}">
                             </div>
                             <div class="form-group row">
                                 <a href="{{route('admin.module.exam.index',$module->id)}}" class="btn btn-secondary btn-block">Cancel</a>

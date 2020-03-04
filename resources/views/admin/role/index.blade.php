@@ -36,12 +36,12 @@
                                     <td data-label="Lastname">{{$role->label ?? ""}}</td>
                                     <td data-label="Edit">
                                         @if(checkPermissions('role.update',false))
-                                            <a href="{{route('admin.role.edit',$role->id)}}" class="text-white"><i class="far fa-edit"></i></a>
+                                            <a href="{{route('admin.role.edit',$role->id)}}" class="text-white"><i class="fas fa-edit"></i></a>
                                         @endif
                                     </td>
                                     <td data-label="Delete">
                                         @if(checkPermissions('role.delete',false))
-                                        <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$role->id}}').submit();" href="#" class="text-white"><i class="far fa-trash-alt"></i></a>
+                                        <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$role->id}}').submit();" href="#" class="text-white"><i class="fas fa-trash-alt"></i></a>
                                         <form action="{{route('admin.role.destroy',$role->id)}}" method="POST" class="d-none" id="delete-form-{{$role->id}}">
                                             {{method_field('DELETE')}}
                                             @csrf

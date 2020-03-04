@@ -38,21 +38,17 @@ class ExamController extends Controller
     public function store(Request $request)
     {
         checkPermissions('module.create');
+
         try {
             $data = $request->all();
-            $module = $this->module->create($data);
-            $module = $module->save();
-
-            $data['coordinators'] = $data['coordinators'] ?? [];
-            $data['teachers'] = $data['teachers'] ?? [];
-
-            $this->sync($module, $data);
+            $exam = $this->exam->create($data);
+            $exam->save();
 
         } catch (\Exception $e){
             return redirect()->back()->with('danger',$e->getMessage());
         }
 
-        return redirect()->route('admin.module.index')->with('success','Module stored');
+        return redirect()->route('admin.module.exam.index')->with('success','Exam stored');
     }
 
 
@@ -62,12 +58,12 @@ class ExamController extends Controller
     }
 
 
-    public function edit($id)
+    public function edit($module_id, $id)
     {
         checkPermissions('module.update');
-        $teachers = $this->teacher->all();
+        $exam = $this->exam->find($id);
         $module = $this->module->find($id);
-        return view('admin.module.form',compact('module', 'teachers'));
+        return view('admin.module.form',compact('module', 'exam'));
     }
 
 
@@ -76,15 +72,13 @@ class ExamController extends Controller
         checkPermissions('module.update');
         try {
             $data = $request->all();
-            $module = $this->module->find($id);
-            $module->update($data);
-
-            $this->sync($module, $data);
+            $exam = $this->module->find($id);
+            $exam->update($data);
 
         } catch (\Exception $e) {
             return redirect()->back()->with('danger',$e->getMessage());
         }
-        return redirect()->route('admin.module.index')->with('success','Module updated');
+        return redirect()->route('admin.module.exam.index')->with('success','Exam updated');
     }
 
 
@@ -98,22 +92,5 @@ class ExamController extends Controller
             return redirect()->back()->with('danger','Module could not be deleted');
         }
         return redirect()->route('admin.module.index')->with('success','Module deleted');
-    }
-
-    private function sync($module, $data){
-
-        if(!empty($data['teachers']) || !empty($data['coordinators'])){
-            $teachers = [];
-            foreach ($data['coordinators'] as $coordinator){
-                $teachers[$coordinator] = ['coordinator' => true];
-            }
-            foreach ($data['teachers'] as $teacher){
-                $teachers[$teacher] = ['coordinator' => false];
-            }
-
-            $module->teachers()->sync($teachers);
-        }
-
-
     }
 }

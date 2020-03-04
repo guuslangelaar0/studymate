@@ -2,17 +2,20 @@
 
 @section('content')
     <div class="container-fluid">
-        @if(checkPermissions('module.create',false))
+
         <div class="row mb-4">
             <div class="col">
+                <a href="{{route('admin.module.index')}}" class="btn btn-primary">Return to modules</a>
+                @if(checkPermissions('module.create',false))
                 <a href="{{route('admin.module.exam.create',$module->id)}}" class="btn btn-primary">Add new exam</a>
+                @endif
             </div>
         </div>
-        @endif
+
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">Exams</div>
+                    <div class="card-header">Exams for module: {{$module->name ?? ""}}</div>
 
                     <div class="card-body">
                         <table class="table">
@@ -40,13 +43,13 @@
                                     <td>{{$exam->end_date ?? ""}}</td>
                                     <td data-label="Edit">
                                         @if(checkPermissions('module.update',false))
-                                            <a href="{{route('admin.module.edit',$exam->id)}}" class="text-white"><i class="far fa-edit"></i></a>
+                                            <a href="{{route('admin.module.edit',$exam->id)}}" class="text-white"><i class="fas fa-edit"></i></a>
                                         @endif
                                     </td>
                                     <td data-label="Delete">
                                         @if(checkPermissions('module.delete',false))
-                                        <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$exam->id}}').submit();" href="#" class="text-white"><i class="far fa-trash-alt"></i></a>
-                                        <form action="{{route('admin.module.exam.destroy',$exam->id)}}" method="POST" class="d-none" id="delete-form-{{$exam->id}}">
+                                        <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$exam->id}}').submit();" href="#" class="text-white"><i class="fas fa-trash-alt"></i></a>
+                                        <form action="{{route('admin.module.exam.destroy',$module->id, $exam->id)}}" method="POST" class="d-none" id="delete-form-{{$exam->id}}">
                                             {{method_field('DELETE')}}
                                             @csrf
                                         </form>

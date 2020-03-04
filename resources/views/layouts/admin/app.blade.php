@@ -19,7 +19,58 @@
 <body class="admin-layout">
     <div id="app" class="d-flex">
 
-        @include('layouts.admin.partials.sidebar')
+        <?php
+            $items = [
+                [
+                    "name" => "Overview",
+                    "route" => "admin.index",
+                    "permission" => "admin.overview",
+                    "icon" => "fa-th-list"
+                ],
+                [
+                    "name" => "Teachers",
+                    "route" => "admin.teacher.index",
+                    "permission" => "teacher.overview",
+                    "icon" => "fa-chalkboard-teacher"
+                ],
+                [
+                    "name" => "Modules",
+                    "route" => "admin.module.index",
+                    "permission" => "module.overview",
+                    "icon" => "fa-book"
+                ],
+                [
+                    "divider" => true,
+                ],
+                [
+                    "name" => "Dashboard",
+                    "route" => "guest.index",
+                    "icon" => "fa-tachometer-alt"
+                ],
+                [
+                    "divider" => true,
+                ],
+                [
+                    "name" => "Users",
+                    "route" => "admin.user.index",
+                    "permission" => "user.overview",
+                    "icon" => "fa-user-alt"
+                ],
+                [
+                    "name" => "Roles",
+                    "route" => "admin.role.index",
+                    "permission" => "role.overview",
+                    "icon" => "fa-users-cog"
+                ],
+                [
+                    "name" => "Permissions",
+                    "route" => "admin.permission.index",
+                    "permission" => "permission.overview",
+                    "icon" => "fa-tasks"
+                ],
+            ]
+        ?>
+        @include('layouts.admin.partials.sidebar', $items)
 
         <div class="content">
             @include('layouts.admin.partials.navbar')
