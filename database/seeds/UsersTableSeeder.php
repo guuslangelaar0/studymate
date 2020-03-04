@@ -23,11 +23,11 @@ class UsersTableSeeder extends Seeder
             $user->roles()->sync([1]);
         }
 
-        if(User::where('email','royberris@gmail.com')->first() === null){
+        if(User::where('email','roy@berris.nl')->first() === null){
             $user = new User();
             $user->firstname = 'Roy';
             $user->lastname = 'Berris';
-            $user->email = 'royberris@gmail.com';
+            $user->email = 'roy@berris.nl';
             $user->password = bcrypt('test123');
             $user->save();
 
