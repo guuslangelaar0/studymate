@@ -23,6 +23,7 @@ Route::get('/google/callback','Auth\LoginController@handleGoogleCallback')->name
  * Routes for guests
  */
 Route::get('/','GuestController@index')->name('guest.index');
+Route::get('/inzien/{id}','GuestController@user')->name('guest.user');
 
 
 /**
