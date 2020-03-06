@@ -36,8 +36,14 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         checkPermissions('permission.create');
+
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $data = $request->all();
+
         try {
-            $data = $request->all();
             $role = $this->role->create($data);
             $role->save();
 
@@ -47,12 +53,6 @@ class RoleController extends Controller
         }
 
         return redirect()->route('admin.role.index')->with('success','Role Created');
-    }
-
-
-    public function show($id)
-    {
-        //
     }
 
 
@@ -68,8 +68,14 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         checkPermissions('permission.update');
+
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $data = $request->all();
+
         try {
-            $data = $request->all();
             $role =  $this->role->find($id);
             $role->update($data);
 

@@ -39,8 +39,20 @@ class ExamController extends Controller
     {
         checkPermissions('module.create');
 
+        $request->validate([
+            'module_id' => 'required',
+            'type' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required'
+        ]);
+
+        $data = $request->all();
+
+        if((strtotime($data['start_date']) - strtotime($data['end_date'])) < 0) {
+            return redirect()->back()->with('danger','Start date is on a later time than the end date.');
+        }
+
         try {
-            $data = $request->all();
             $exam = $this->exam->create($data);
             $exam->save();
 
@@ -48,7 +60,7 @@ class ExamController extends Controller
             return redirect()->back()->with('danger',$e->getMessage());
         }
 
-        return redirect()->route('admin.module.exam.index')->with('success','Exam stored');
+        return redirect()->route('admin.module.exam.index',$data['module_id'])->with('success','Exam stored');
     }
 
 
@@ -56,7 +68,6 @@ class ExamController extends Controller
     {
         //
     }
-
 
     public function edit($module_id, $id)
     {
@@ -70,8 +81,21 @@ class ExamController extends Controller
     public function update(Request $request, $id)
     {
         checkPermissions('module.update');
+
+        $request->validate([
+            'module_id' => 'required',
+            'type' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required'
+        ]);
+
+        $data = $request->all();
+
+        if((strtotime($data['start_date']) - strtotime($data['end_date'])) < 0) {
+            return redirect()->back()->with('danger','Start date is on a later time than the end date.');
+        }
+
         try {
-            $data = $request->all();
             $exam = $this->module->find($id);
             $exam->update($data);
 

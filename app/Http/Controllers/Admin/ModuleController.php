@@ -38,8 +38,15 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         checkPermissions('module.create');
+
+        $request->validate([
+            'name' => 'required',
+            'short_name' => 'required',
+        ]);
+
+        $data = $request->all();
+
         try {
-            $data = $request->all();
             $module = $this->module->create($data);
             $module = $module->save();
 
@@ -74,8 +81,16 @@ class ModuleController extends Controller
     public function update(Request $request, $id)
     {
         checkPermissions('module.update');
+
+        $request->validate([
+            'name' => 'required',
+            'short_name' => 'required',
+        ]);
+
+        $data = $request->all();
+
         try {
-            $data = $request->all();
+
             $module = $this->module->find($id);
             $module->update($data);
 

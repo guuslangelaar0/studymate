@@ -36,8 +36,19 @@ class UserController extends Controller
     public function store(Request $request)
     {
         checkPermissions('user.create');
+
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'confirm_password' => 'required',
+        ]);
+
+        $data = $request->all();
+
         try {
-            $data = $request->all();
+
             $data = $this->encryptPassword($data);
             $user = $this->user->create($data);
             $user->save();
@@ -69,8 +80,16 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         checkPermissions('user.update');
+
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        $data = $request->all();
+
         try {
-            $data = $request->all();
             $user =  $this->user->find($id);
             $data = $this->encryptPassword($data);
             $user->update($data);

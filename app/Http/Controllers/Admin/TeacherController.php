@@ -32,8 +32,17 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         checkPermissions('teacher.create');
+
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|email'
+        ]);
+
+        $data = $request->all();
+
         try {
-            $data = $request->all();
+
             $teacher = $this->teacher->create($data);
             $teacher->save();
         } catch (\Exception $e) {
@@ -41,12 +50,6 @@ class TeacherController extends Controller
         }
 
         return redirect()->route('admin.teacher.index')->with('success','Teacher Created');
-    }
-
-
-    public function show($id)
-    {
-        //
     }
 
 
@@ -61,8 +64,16 @@ class TeacherController extends Controller
     public function update(Request $request, $id)
     {
         checkPermissions('teacher.update');
+
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|email'
+        ]);
+
+        $data = $request->all();
+
         try {
-            $data = $request->all();
             $teacher =  $this->teacher->find($id);
             $teacher->update($data);
 

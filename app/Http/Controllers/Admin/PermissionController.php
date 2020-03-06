@@ -32,8 +32,14 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         checkPermissions('permission.create');
+
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $data = $request->all();
+
         try {
-            $data = $request->all();
             $permission = $this->permission->create($data);
             $permission->save();
         } catch (\Exception $e) {
@@ -61,8 +67,13 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {
         checkPermissions('permission.update');
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $data = $request->all();
+
         try {
-            $data = $request->all();
             $permission =  $this->permission->find($id);
             $permission->update($data);
 
