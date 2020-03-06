@@ -44,14 +44,12 @@ class ModuleController extends Controller
             'short_name' => 'required',
         ]);
 
-        $data = $request->all();
 
+        $data = $request->all();
         try {
+
             $module = $this->module->create($data);
             $module = $module->save();
-
-            $data['coordinators'] = $data['coordinators'] ?? [];
-            $data['teachers'] = $data['teachers'] ?? [];
 
             $this->sync($module, $data);
 
@@ -116,6 +114,8 @@ class ModuleController extends Controller
     }
 
     private function sync($module, $data){
+        $data['coordinators'] = $data['coordinators'] ?? [];
+        $data['teachers'] = $data['teachers'] ?? [];
 
         if(!empty($data['teachers']) || !empty($data['coordinators'])){
             $teachers = [];
