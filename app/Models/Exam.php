@@ -14,7 +14,7 @@ class Exam extends Model
 
     public $timestamps = false;
 
-    public function modules() {
+    public function module() {
         return $this->belongsTo(Module::class);
     }
 

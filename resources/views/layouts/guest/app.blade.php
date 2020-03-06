@@ -53,7 +53,10 @@
                                     @if(checkPermissions('admin.overview',false))
                                         <a class="dropdown-item" href="{{route('admin.index')}}">Admin Environment</a>
                                     @endif
-                                    <a class="dropdown-item" href="{{route('admin.index')}}">Deadline Management</a>
+
+                                    @if(checkPermissions('dm.overview',false))
+                                        <a class="dropdown-item" href="{{route('admin.dm.index')}}">Deadline Manager</a>
+                                    @endif
 
                                     @if(Session::has('loggedInAs'))
                                         <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('returnToOwnUser').submit();">Back to your account</a>

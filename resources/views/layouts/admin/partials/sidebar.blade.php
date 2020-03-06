@@ -11,13 +11,12 @@
             @if(!empty(Arr::get($item,'permission','')))
                 @if(checkPermissions(Arr::get($item,'permission'), false))
                     <a href="{{route(Arr::get($item,'route'))}}" class="list-group-item {{ setItemActive(Arr::get($item,'route'))}}"> <i class="fas {{Arr::get($item, "icon")}}"></i>{{Arr::get($item,'name')}}</a>
+                    @if(Arr::get($item,'divider',false))
+                        <hr class="divider">
+                    @endif
                 @endif
             @else
-                @if(Arr::get($item,'divider',false))
-                    <hr class="divider">
-                @else
-                    <a href="{{route(Arr::get($item,'route'))}}" class="list-group-item {{ setItemActive(Arr::get($item,'route'))}}"> <i class="fas {{Arr::get($item, "icon")}}"></i>{{Arr::get($item,'name')}}</a>
-                @endif
+                <a href="{{route(Arr::get($item,'route'))}}" class="list-group-item {{ setItemActive(Arr::get($item,'route'))}}"> <i class="fas {{Arr::get($item, "icon")}}"></i>{{Arr::get($item,'name')}}</a>
             @endif
         @endforeach
         <hr class="divider">

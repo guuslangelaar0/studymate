@@ -40,6 +40,8 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'permission.create','label' => 'Permission create page'],
             ['name' => 'permission.update','label' => 'Permission update page'],
             ['name' => 'permission.delete','label' => 'Permission delete page'],
+
+            ['name' => 'dm.overview','label' => 'Deadline Manager overview page'],
         ];
 
         foreach ($permissions as $permission){

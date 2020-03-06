@@ -100,7 +100,9 @@ Route::middleware('auth')->prefix('admin')->group(function(){
         Route::delete('/{id}/destroy','Admin\PermissionController@destroy')->name('admin.permission.destroy');
     });
 
-
+    Route::prefix('deadline-manager')->group(function () {
+        Route::get('/','DM\DMController@index')->name('admin.dm.index');
+    });
 });
 
 

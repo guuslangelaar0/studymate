@@ -49,7 +49,7 @@
                                     <td data-label="Delete">
                                         @if(checkPermissions('module.delete',false))
                                         <a onclick="event.preventDefault(); document.getElementById('delete-form-{{$exam->id}}').submit();" href="#" class="text-white"><i class="fas fa-trash-alt"></i></a>
-                                        <form action="{{route('admin.module.exam.destroy',$module->id, $exam->id)}}" method="POST" class="d-none" id="delete-form-{{$exam->id}}">
+                                        <form action="{{route('admin.module.exam.destroy', $exam->id)}}" method="POST" class="d-none" id="delete-form-{{$exam->id}}">
                                             {{method_field('DELETE')}}
                                             @csrf
                                         </form>

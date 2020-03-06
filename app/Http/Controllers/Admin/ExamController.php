@@ -110,11 +110,11 @@ class ExamController extends Controller
     {
         checkPermissions('module.delete');
         try {
-            $module = $this->module->find($id);
-            $module->delete();
+            $exam = $this->exam->find($id);
+            $exam->delete();
         } catch (\Exception $e) {
-            return redirect()->back()->with('danger','Module could not be deleted');
+            return redirect()->back()->with('danger','Exam could not be deleted');
         }
-        return redirect()->route('admin.module.index')->with('success','Module deleted');
+        return redirect()->route('admin.module.index')->with('success','Exam deleted');
     }
 }

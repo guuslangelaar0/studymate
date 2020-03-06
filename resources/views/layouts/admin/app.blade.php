@@ -25,7 +25,15 @@
                     "name" => "Overview",
                     "route" => "admin.index",
                     "permission" => "admin.overview",
-                    "icon" => "fa-th-list"
+                    "icon" => "fa-th-list",
+
+                ],
+                [
+                    "name" => "Deadline Manager",
+                    "route" => "admin.dm.index",
+                    "permission" => "dm.overview",
+                    "icon" => "fa-tasks",
+                    "divider" => true,
                 ],
                 [
                     "name" => "Teachers",
@@ -37,17 +45,13 @@
                     "name" => "Modules",
                     "route" => "admin.module.index",
                     "permission" => "module.overview",
-                    "icon" => "fa-book"
-                ],
-                [
+                    "icon" => "fa-book",
                     "divider" => true,
                 ],
                 [
                     "name" => "Dashboard",
                     "route" => "guest.index",
-                    "icon" => "fa-tachometer-alt"
-                ],
-                [
+                    "icon" => "fa-tachometer-alt",
                     "divider" => true,
                 ],
                 [
@@ -66,7 +70,7 @@
                     "name" => "Permissions",
                     "route" => "admin.permission.index",
                     "permission" => "permission.overview",
-                    "icon" => "fa-tasks"
+                    "icon" => "fa-tasks",
                 ],
             ]
         ?>
