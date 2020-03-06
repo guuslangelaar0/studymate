@@ -48,7 +48,7 @@ class ExamController extends Controller
 
         $data = $request->all();
 
-        if((strtotime($data['start_date']) - strtotime($data['end_date'])) < 0) {
+        if((strtotime($data['end_date']) - strtotime($data['start_date'])) < 0) {
             return redirect()->back()->with('danger','Start date is on a later time than the end date.');
         }
 
@@ -91,7 +91,7 @@ class ExamController extends Controller
 
         $data = $request->all();
 
-        if((strtotime($data['start_date']) - strtotime($data['end_date'])) < 0) {
+        if((strtotime($data['end_date']) - strtotime($data['start_date'])) < 0) {
             return redirect()->back()->with('danger','Start date is on a later time than the end date.');
         }
 

@@ -49,7 +49,7 @@ class ModuleController extends Controller
         try {
 
             $module = $this->module->create($data);
-            $module = $module->save();
+            $module->save();
 
             $this->sync($module, $data);
 

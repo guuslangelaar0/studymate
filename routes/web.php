@@ -102,6 +102,9 @@ Route::middleware('auth')->prefix('admin')->group(function(){
 
     Route::prefix('deadline-manager')->group(function () {
         Route::get('/','DM\DMController@index')->name('admin.dm.index');
+
+        Route::post('/{id}/enroll', 'DM\DMController@enroll')->name('admin.dm.enroll');
+        Route::post('/{id}/unroll', 'DM\DMController@disenroll')->name('admin.dm.disenroll');
     });
 });
 
