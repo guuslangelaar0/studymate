@@ -106,6 +106,17 @@ Route::middleware('auth')->prefix('admin')->group(function(){
         Route::post('/{id}/enroll', 'DM\DMController@enroll')->name('admin.dm.enroll');
         Route::post('/{id}/unroll', 'DM\DMController@disenroll')->name('admin.dm.disenroll');
     });
+
+    Route::prefix('account')->group(function () {
+        Route::get('/','Admin\AccountController@index')->name('admin.account.index');
+        Route::get('/edit','Admin\AccountController@edit')->name('admin.account.edit');
+
+        Route::put('/update','Admin\AccountController@update')->name('admin.account.update');
+
+        Route::get('/connect/google','Auth\LoginController@redirectToGoogle')->name('admin.account.connect.google');
+
+
+    });
 });
 
 

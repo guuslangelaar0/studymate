@@ -16,4 +16,16 @@ class Teacher extends Model
         return $this->belongsToMany(Module::class, 'module_teachers')->withPivot('coordinator');
     }
 
+    public function getFirstnameAttribute($value) {
+        return decrypt($value);
+    }
+
+    public function getLastnameAttribute($value) {
+        return decrypt($value);
+    }
+
+    public function getEmailAttribute($value) {
+        return decrypt($value);
+    }
+
 }

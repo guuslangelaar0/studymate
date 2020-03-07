@@ -72,6 +72,11 @@
                     "permission" => "permission.overview",
                     "icon" => "fa-tasks",
                 ],
+                [
+                    'name' => 'Account',
+                    'route' => 'admin.account.index',
+                    'icon' => 'fa-user'
+                ]
             ]
         ?>
         @include('layouts.admin.partials.sidebar', $items)

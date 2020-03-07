@@ -12,7 +12,7 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'firstname', 'lastname','email', 'password',
+        'username','firstname', 'lastname','email', 'password','google_id'
     ];
 
 
@@ -31,6 +31,20 @@ class User extends Authenticatable
     public function exams() {
         return $this->belongsToMany(Exam::class, 'user_exams');
     }
+
+    public function getFirstnameAttribute($value) {
+        return decrypt($value);
+    }
+
+    public function getLastnameAttribute($value) {
+        return decrypt($value);
+    }
+
+    public function getEmailAttribute($value) {
+        return decrypt($value);
+    }
+
+
 
 
 }

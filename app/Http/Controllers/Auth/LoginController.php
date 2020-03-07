@@ -40,6 +40,11 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function username()
+    {
+        return 'username';
+    }
+
 
     public function redirectToGoogle(){
         return Socialite::driver('google')->redirect();
@@ -52,7 +57,7 @@ class LoginController extends Controller
             return $this->redirectToLoginWithError();
         }
 
-        $existingUser = User::where('email', $user->email)->first();
+        $existingUser = User::where('google_id', $user->getId())->first();
         if($existingUser){
             auth()->login($existingUser, true);
         }

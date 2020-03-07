@@ -15,7 +15,7 @@
 
                         <div class="form-group row">
                             <div class="col">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="{{ __('auth.email_address') }}" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="username" type="text" class="form-control @error('email') is-invalid @enderror" name="username" placeholder="{{ __('auth.username') }}" value="{{ old('username') }}" required autocomplete="username" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">

@@ -19,6 +19,7 @@ return [
     'remember_me' => 'Remember Me',
     'forgot_password' => 'Forgot your password?',
     'email_address' => 'E-Mail Address',
+    'username' => 'Username',
     'password' => 'Password',
     'login' => 'Login',
 
