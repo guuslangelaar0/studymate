@@ -51,7 +51,7 @@
 
                         <div class="form-group row">
                             <div class="col text-center">
-                                <button type="submit" class="btn btn-primary btn-block">
+                                <button dusk="login-button" type="submit" class="btn btn-primary btn-block">
                                     {{ __('auth.login') }}
                                 </button>
 
