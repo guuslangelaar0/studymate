@@ -14,22 +14,4 @@ class AccountController extends Controller
         $user = auth()->user();
         return view('admin.account.index',compact('user'));
     }
-
-    public function redirectToGoogle(){
-        return Socialite::driver('google')->redirect();
-    }
-
-    public function handleGoogleCallback(){
-        try {
-            $user = Socialite::driver('google')->user();
-        } catch (\Exception $e) {
-            return $this->redirectToLoginWithError();
-        }
-
-        $existingUser = User::where('google_id', $user->getId())->first();
-        if($existingUser){
-            auth()->login($existingUser, true);
-        }
-        return $this->redirectToLoginWithError();
-    }
 }

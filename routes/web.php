@@ -15,8 +15,9 @@ Auth::routes(['register' => false]);
 /**
  * Google OAuth Login
  */
-Route::get('/google/redirect','Auth\LoginController@redirectToGoogle')->name('google.redirect');
-Route::get('/google/callback','Auth\LoginController@handleGoogleCallback')->name('google.callback');
+Route::get('/google/redirect','Auth\OAuth\GoogleController@redirectToGoogle')->name('google.redirect');
+Route::get('/google/callback','Auth\OAuth\GoogleController@handleGoogleCallback')->name('google.callback');
+Route::get('/google/disconnect','Auth\OAuth\GoogleController@disconnect')->name('google.disconnect');
 
 
 /**
@@ -112,9 +113,6 @@ Route::middleware('auth')->prefix('admin')->group(function(){
         Route::get('/edit','Admin\AccountController@edit')->name('admin.account.edit');
 
         Route::put('/update','Admin\AccountController@update')->name('admin.account.update');
-
-        Route::get('/connect/google','Auth\LoginController@redirectToGoogle')->name('admin.account.connect.google');
-
 
     });
 });

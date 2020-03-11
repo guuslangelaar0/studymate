@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
@@ -43,28 +44,5 @@ class LoginController extends Controller
     public function username()
     {
         return 'username';
-    }
-
-
-    public function redirectToGoogle(){
-        return Socialite::driver('google')->redirect();
-    }
-
-    public function handleGoogleCallback(){
-        try {
-            $user = Socialite::driver('google')->user();
-        } catch (\Exception $e) {
-            return $this->redirectToLoginWithError();
-        }
-
-        $existingUser = User::where('google_id', $user->getId())->first();
-        if($existingUser){
-            auth()->login($existingUser, true);
-        }
-        return $this->redirectToLoginWithError();
-    }
-
-    private function redirectToLoginWithError(){
-        return redirect('/login')->with('alert-danger','Failed to login. Please try again later or contact <a href="mailto:guus@every1online.com">guus@every1online.com</a>');
     }
 }

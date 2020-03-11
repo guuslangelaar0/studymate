@@ -30,12 +30,17 @@
                         @if($user->google_id === null)
                         <div>
                             <label for="" class="d-inline-block">Connect with google: </label>
-                            <a href="{{route('admin.account.connect.google')}}">
+                            <a href="{{route('google.redirect')}}">
                                 <img class="btn-block d-inline-block" style="width: 200px;" src="{{asset('img/btn_google_sso.png')}}" alt="">
                             </a>
                         </div>
                         @else
-
+                        <div>
+                            <label for="" class="d-inline-block">You are connected to your google account </label> <br>
+                            <a href="{{route('google.disconnect')}}" class="btn btn-primary">
+                                Disconnect from Google
+                            </a>
+                        </div>
                         @endif
                     </div>
                 </div>
