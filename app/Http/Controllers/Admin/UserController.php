@@ -40,6 +40,7 @@ class UserController extends Controller
         $request->validate([
             'firstname' => 'required',
             'lastname' => 'required',
+            'username' => 'required',
             'email' => 'required|email',
             'password' => 'required',
             'confirm_password' => 'required',

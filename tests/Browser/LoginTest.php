@@ -18,8 +18,8 @@ class LoginTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/login');
 
-            $browser->value('#username', 'royberris');
-            $browser->value('#password', 'test123');
+            $browser->value('#username', 'dusk');
+            $browser->value('#password', 'dusk');
             $browser->click('@login-button');
 
             $browser->assertAuthenticated();

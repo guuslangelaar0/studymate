@@ -29,6 +29,14 @@ class UsersTableSeeder extends Seeder
                 'password' => 'test123',
                 'roles' => [1]
             ],
+            [
+                'username' => 'dusk',
+                'email' => 'dusk@gmail.nl',
+                'firstname' => 'Dusk',
+                'lastname' => 'Test',
+                'password' => 'dusk',
+                'roles' => [1]
+            ],
         ];
 
         foreach ($users as $givenUser) {

@@ -44,6 +44,18 @@ class User extends Authenticatable
         return decrypt($value);
     }
 
+    public function setFirstnameAttribute($value) {
+        $this->attributes['firstname'] = encrypt($value);
+    }
+
+    public function setLastnameAttribute($value) {
+        $this->attributes['lastname'] =  encrypt($value);
+    }
+
+    public function setEmailAttribute($value) {
+        $this->attributes['email'] =  encrypt($value);
+    }
+
 
 
 

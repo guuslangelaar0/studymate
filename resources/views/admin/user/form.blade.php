@@ -23,6 +23,10 @@
                             {{csrf_field()}}
                             {{ isset($user) ? method_field('PUT') : method_field('POST')}}
                             <div class="form-group row">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" class="form-control" name="username" placeholder="Username" value="{{$user->username ?? ""}}">
+                            </div>
+                            <div class="form-group row">
                                 <label for="firstname">First name</label>
                                 <input type="text" id="firstname" class="form-control" name="firstname" placeholder="First name" value="{{$user->firstname ?? ""}}">
                             </div>
