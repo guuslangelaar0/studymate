@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        @if(checkPermissions('teacher.create'))
+        @if(checkPermissions('teacher.create', false))
             <div class="row mb-4">
                 <div class="col">
                     <a href="{{route('admin.teacher.create')}}" class="btn btn-primary">Add new teacher</a>
