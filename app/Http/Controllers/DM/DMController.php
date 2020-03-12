@@ -32,6 +32,11 @@ class DMController extends Controller
         try {
             $module = $this->module->find($id);
             auth()->user()->modules()->attach([$id]);
+
+            foreach ($module->exams() as $exam) {
+                auth()->user()->exams()->attach([$exam->id]);
+            }
+
         } catch (\Exception $e) {
             return redirect()->back()->with('danger',$e->getMessage());
         }
