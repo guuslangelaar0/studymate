@@ -40,7 +40,7 @@ class UsersTableSeeder extends Seeder
         ];
 
         foreach ($users as $givenUser) {
-            if(User::where('email',$givenUser['email'])->first() === null){
+            if(User::where('username',$givenUser['username'])->first() === null){
                 $user = new User();
                 $user->username = $givenUser['username'];
                 $user->firstname = encrypt($givenUser['firstname']);
