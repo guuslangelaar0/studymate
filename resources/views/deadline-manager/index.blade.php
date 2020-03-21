@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col">
+                <a href="{{route('guest.user',auth()->user()->id)}}" class="btn btn-primary">My Dashboard</a>
+            </div>
+        </div>
         <div class="row">
             <div class="col">
                 <div class="card">

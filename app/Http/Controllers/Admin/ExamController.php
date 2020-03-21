@@ -60,7 +60,7 @@ class ExamController extends Controller
             return redirect()->back()->with('danger',$e->getMessage());
         }
 
-        return redirect()->route('admin.module.exam.index',$data['module_id'])->with('success','Exam stored');
+        return redirect()->route('admin.module.exams.index',$data['module_id'])->with('success','Exam stored');
     }
 
 
@@ -69,12 +69,12 @@ class ExamController extends Controller
         //
     }
 
-    public function edit($module_id, $id)
+    public function edit($id)
     {
         checkPermissions('module.update');
         $exam = $this->exam->find($id);
-        $module = $this->module->find($id);
-        return view('admin.module.form',compact('module', 'exam'));
+        $module = $this->module->find($exam->module_id);
+        return view('admin.module.exams.form',compact('exam','module'));
     }
 
 
@@ -102,7 +102,7 @@ class ExamController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('danger',$e->getMessage());
         }
-        return redirect()->route('admin.module.exam.index')->with('success','Exam updated');
+        return redirect()->route('admin.module.exams.index')->with('success','Exam updated');
     }
 
 
@@ -115,6 +115,6 @@ class ExamController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('danger','Exam could not be deleted');
         }
-        return redirect()->route('admin.module.index')->with('success','Exam deleted');
+        return redirect()->route('admin.module.exams.index')->with('success','Exam deleted');
     }
 }

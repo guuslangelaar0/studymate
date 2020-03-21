@@ -9,7 +9,7 @@ class Exam extends Model
 {
     protected $table = 'exams';
     protected $fillable = [
-        'label','start_date', 'end_date', 'type', 'module_id'
+        'label','start_date', 'end_date', 'type', 'module_id','ec'
     ];
 
     public $timestamps = false;

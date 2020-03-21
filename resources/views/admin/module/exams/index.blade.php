@@ -43,7 +43,7 @@
                                     <td>{{$exam->end_date ?? ""}}</td>
                                     <td data-label="Edit">
                                         @if(checkPermissions('module.update',false))
-                                            <a href="{{route('admin.module.edit',$exam->id)}}" class="text-white"><i class="fas fa-edit"></i></a>
+                                            <a href="{{route('admin.module.exam.edit',$exam->id)}}" class="text-white"><i class="fas fa-edit"></i></a>
                                         @endif
                                     </td>
                                     <td data-label="Delete">

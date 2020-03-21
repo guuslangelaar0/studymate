@@ -47,6 +47,14 @@
                                 </select>
                             </div>
                             <div class="form-group row">
+                                <label for="block">Block</label>
+                                <select name="block" id="block" class="form-control">
+                                    @for($i = 1; $i <= 16; $i++)
+                                        <option value="{{$i}}" {{ isset($module) ? ($module->block == $i ? 'selected' : '') : ''}}>Blok {{$i}}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                            <div class="form-group row">
                                 <a href="{{route('admin.module.index')}}" class="btn btn-secondary btn-block">Cancel</a>
                                 <button type="submit" class="btn btn-primary btn-block">Save</button>
                             </div>
