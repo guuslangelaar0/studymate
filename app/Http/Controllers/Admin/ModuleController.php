@@ -45,9 +45,8 @@ class ModuleController extends Controller
         ]);
 
 
-        $data = $request->all();
         try {
-
+            $data = $request->all();
             $module = $this->module->create($data);
             $module->save();
 
@@ -85,10 +84,10 @@ class ModuleController extends Controller
             'short_name' => 'required',
         ]);
 
-        $data = $request->all();
+
 
         try {
-
+            $data = $request->all();
             $module = $this->module->find($id);
             $module->update($data);
 
@@ -114,20 +113,16 @@ class ModuleController extends Controller
     }
 
     private function sync($module, $data){
-        $data['coordinators'] = $data['coordinators'] ?? [];
-        $data['teachers'] = $data['teachers'] ?? [];
 
-        if(!empty($data['teachers']) || !empty($data['coordinators'])){
-            $teachers = [];
-            foreach ($data['coordinators'] as $coordinator){
-                $teachers[$coordinator] = ['coordinator' => true];
-            }
-            foreach ($data['teachers'] as $teacher){
-                $teachers[$teacher] = ['coordinator' => false];
-            }
+        $coordinators = $data['coordinators'] ?? [];
+        $teachers = [];
 
-            $module->teachers()->sync($teachers);
+        foreach ($data['teachers'] as $teacher){
+            $teachers[$teacher] = ['coordinator' => in_array($teacher, $coordinators)];
         }
+
+
+        $module->teachers()->sync($teachers);
 
 
     }

@@ -47,7 +47,7 @@
                                         @if(auth()->user()->modules->find($module->id) != null)
                                             <form action="{{route('admin.dm.disenroll',$module->id)}}" method="post">
                                                 @csrf
-                                                <button class="btn btn-danger" type="submit">Disenroll</button>
+                                                <button class="btn btn-danger" type="submit">Unenroll</button>
                                             </form>
 
                                         @else

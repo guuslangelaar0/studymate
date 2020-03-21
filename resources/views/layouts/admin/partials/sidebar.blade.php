@@ -8,17 +8,14 @@
     <div class="list-group list-group-flush">
 
         @foreach($items as $item)
-            @if(!empty(Arr::get($item,'permission','')))
-                @if(checkPermissions(Arr::get($item,'permission'), false))
-                    <a href="{{route(Arr::get($item,'route'))}}" class="list-group-item {{ setItemActive(Arr::get($item,'route'))}}"> <i class="fas {{Arr::get($item, "icon")}}"></i>{{Arr::get($item,'name')}}</a>
-                    @if(Arr::get($item,'divider',false))
-                        <hr class="divider">
-                    @endif
+            @can(Arr::get($item,'permission',null))
+                <a href="{{route(Arr::get($item,'route',''))}}" class="list-group-item {{ setItemActive(Arr::get($item,'route',''))}}"> <i class="fas {{Arr::get($item,'icon',null)}}"></i>{{Arr::get($item,'name','')}}</a>
+                @if(Arr::get($item,'divider',false))
+                    <hr class="divider">
                 @endif
-            @else
-                <a href="{{route(Arr::get($item,'route'))}}" class="list-group-item {{ setItemActive(Arr::get($item,'route'))}}"> <i class="fas {{Arr::get($item, "icon")}}"></i>{{Arr::get($item,'name')}}</a>
-            @endif
+            @endcan
         @endforeach
+
         <hr class="divider">
         @if(Session::has('loggedInAs'))
             <a href="#" class="list-group-item" onclick="event.preventDefault(); document.getElementById('returnToOwnUser').submit();"> <i class="fas fa-sign-in-alt"></i>Back to your account</a>
