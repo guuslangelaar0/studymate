@@ -51,8 +51,9 @@
                                     </td>
                                     <td>
                                         @if(auth()->user()->modules->find($module->id) != null)
-                                            <form action="{{route('admin.dm.disenroll',$module->id)}}" method="post">
+                                            <form action="{{route('admin.dm.unenroll',$module->id)}}" method="post">
                                                 @csrf
+                                                {{method_field('DELETE')}}
                                                 <button class="btn btn-danger" type="submit">Unenroll</button>
                                             </form>
 
@@ -92,8 +93,8 @@
                                 <tr>
                                     <td data-label="Module">{{$exam->module->short_name ?? "N/A"}}</td>
                                     <td data-label="Exam">{{$exam->label ?? "N/A"}}</td>
-                                    <td data-label="Start Date">{{\Carbon\Carbon::parse($exam->start_date)->format("d-m-Y") ?? "N/A"}}</td>
-                                    <td data-label="End Date">{{\Carbon\Carbon::parse($exam->end_date)->format("d-m-Y") ?? "N/A"}}</td>
+                                    <td data-label="Start Date">{{\Carbon\Carbon::parse($exam->start_date)->format("d-m-Y H:m") ?? "N/A"}}</td>
+                                    <td data-label="End Date">{{\Carbon\Carbon::parse($exam->end_date)->format("d-m-Y H:m") ?? "N/A"}}</td>
                                     <td data-label="Remove">
                                         <form action="{{route('admin.dm.enroll_exam', $exam->id)}}" method="post">
                                             @csrf
@@ -131,8 +132,8 @@
                                 <tr>
                                     <td data-label="Module">{{$exam->module->short_name ?? "N/A"}}</td>
                                     <td data-label="Exam">{{$exam->label ?? "N/A"}}</td>
-                                    <td data-label="Start Date">{{\Carbon\Carbon::parse($exam->start_date)->format("d-m-Y") ?? "N/A"}}</td>
-                                    <td data-label="End Date">{{\Carbon\Carbon::parse($exam->end_date)->format("d-m-Y") ?? "N/A"}}</td>
+                                    <td data-label="Start Date">{{\Carbon\Carbon::parse($exam->start_date)->format("d-m-Y H:m") ?? "N/A"}}</td>
+                                    <td data-label="End Date">{{\Carbon\Carbon::parse($exam->end_date)->format("d-m-Y H:m") ?? "N/A"}}</td>
                                     <td data-label="Tag">{{$exam->pivot->tag}}</td>
                                     <td data-label="Finished">
                                         <form action="#" method="post" class="form">
@@ -142,9 +143,10 @@
                                         </form>
                                     </td>
                                     <td data-label="Remove">
-                                        <form action="{{route('admin.dm.unenroll_exam', $exam->id)}}" method="post">
+                                        <a onclick="event.preventDefault(); document.getElementById('delete-user-exam-{{$exam->id}}').submit();" href="#" class="text-white"><i class="fas fa-trash-alt"></i></a>
+                                        <form action="{{route('admin.dm.unenroll_exam', $exam->id)}}" method="POST" class="d-none" id="delete-user-exam-{{$exam->id}}">
+                                            {{method_field('DELETE')}}
                                             @csrf
-                                            <button class="btn btn-danger" type="submit">X</button>
                                         </form>
                                     </td>
                                 </tr>
