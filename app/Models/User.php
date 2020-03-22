@@ -29,7 +29,7 @@ class User extends Authenticatable
     }
 
     public function exams() {
-        return $this->belongsToMany(Exam::class, 'user_exams')->withPivot(['file', 'tag', 'finished', 'created_at', 'updated_at']);
+        return $this->belongsToMany(Exam::class, 'user_exams')->withPivot('file', 'tag', 'finished', 'created_at', 'updated_at');
     }
 
     public function getFirstnameAttribute($value) {
