@@ -22,6 +22,7 @@
                                 <th scope="col">Coordinators</th>
                                 <th scope="col">Enroll</th>
                             </thead>
+                            <tbody>
                             @foreach($modules as $module)
                                 <tr>
                                     <td> {{$module->name}}</td>
@@ -64,6 +65,7 @@
                                     </td>
                                 </tr>
                             @endforeach
+                            </tbody>
                         </table>
                     </div>
                 </div>
