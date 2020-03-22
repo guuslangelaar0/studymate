@@ -5,6 +5,7 @@ namespace App\Http\Controllers\DM;
 use App\Http\Controllers\Controller;
 use App\Models\Exam;
 use App\Models\Module;
+use Exception;
 use Illuminate\Http\Request;
 
 class DMController extends Controller
@@ -70,5 +71,18 @@ class DMController extends Controller
             return redirect()->back()->with('danger', $e->getMessage());
         }
         return redirect()->back()->with('success', 'Unenrolled for ' . $exam->label);
+    }
+
+    public function updateUserExam(Request $request, $id) {
+        $data = $request->all();
+        try{
+            $finished = isset($data['finished']) ? 1 : 0;
+            //sync exam
+            auth()->user()->exams()->sync([$id => ['finished' => $finished]]);
+
+        } catch(\Exception $e) {
+            return redirect()->back()->with('danger',$e->getMessage());
+        }
+        return redirect()->back()->with('success','Exam updated');
     }
 }

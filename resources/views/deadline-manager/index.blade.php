@@ -136,10 +136,10 @@
                                     <td data-label="End Date">{{\Carbon\Carbon::parse($exam->end_date)->format("d-m-Y H:m") ?? "N/A"}}</td>
                                     <td data-label="Tag">{{$exam->pivot->tag}}</td>
                                     <td data-label="Finished">
-                                        <form action="#" method="post" class="form">
+                                    <form action="{{route('admin.dm.user-exam.update',$exam->id)}}" method="post" class="form" id="exam-finished-{{$exam->id}}">
                                             @csrf
-                                            <input type="hidden" name="id" value="{{$exam->id}}">
-                                            <input type="checkbox" name="finished" {{$exam->pivot->finished == true ? "checked" : ""}} />
+                                            {{method_field('put')}}
+                                            <input type="checkbox" value="1" name="finished" {{$exam->pivot->finished == true ? "checked" : ""}} onclick="document.getElementById('exam-finished-{{$exam->id}}').submit()"/>
                                         </form>
                                     </td>
                                     <td data-label="Remove">
