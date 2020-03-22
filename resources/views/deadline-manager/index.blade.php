@@ -69,6 +69,44 @@
                 </div>
             </div>
         </div>
+        @if (count($examsNotEnrolled))
+        <div class="row mt-5">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        Exams
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <th scope="row">Module</th>
+                                <th scope="row">Exam</th>
+                                <th scope="row">Start Date</th>
+                                <th scope="row">End Date</th>
+                                <th scope="row"></th>
+                            </thead>
+                            <tbody>
+                            @foreach($examsNotEnrolled as $exam)
+                                <tr>
+                                    <td data-label="Module">{{$exam->module->short_name ?? "N/A"}}</td>
+                                    <td data-label="Exam">{{$exam->label ?? "N/A"}}</td>
+                                    <td data-label="Start Date">{{\Carbon\Carbon::parse($exam->start_date)->format("d-m-Y") ?? "N/A"}}</td>
+                                    <td data-label="End Date">{{\Carbon\Carbon::parse($exam->end_date)->format("d-m-Y") ?? "N/A"}}</td>
+                                    <td data-label="Remove">
+                                        <form action="{{route('admin.dm.enroll_exam', $exam->id)}}" method="post">
+                                            @csrf
+                                            <button class="btn btn-primary" type="submit">Add</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
         <div class="row mt-5">
             <div class="col">
                 <div class="card">
@@ -82,17 +120,34 @@
                                 <th scope="row">Exam</th>
                                 <th scope="row">Start Date</th>
                                 <th scope="row">End Date</th>
+                                <th scope="row">Tag</th>
+                                <th scope="row">Finished</th>
+                                <th scope="row"></th>
                             </thead>
                             <tbody>
-                            @foreach($exams as $exam)
+                            @foreach($examsEnrolled as $exam)
                                 <tr>
                                     <td data-label="Module">{{$exam->module->short_name ?? "N/A"}}</td>
                                     <td data-label="Exam">{{$exam->label ?? "N/A"}}</td>
                                     <td data-label="Start Date">{{\Carbon\Carbon::parse($exam->start_date)->format("d-m-Y") ?? "N/A"}}</td>
                                     <td data-label="End Date">{{\Carbon\Carbon::parse($exam->end_date)->format("d-m-Y") ?? "N/A"}}</td>
+                                    <td data-label="Tag">{{$exam->pivot->tag}}</td>
+                                    <td data-label="Finished">
+                                        <form action="#" method="post" class="form">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{$exam->id}}">
+                                            <input type="checkbox" name="finished" {{$exam->pivot->finished == true ? "checked" : ""}} />
+                                        </form>
+                                    </td>
+                                    <td data-label="Remove">
+                                        <form action="{{route('admin.dm.unenroll_exam', $exam->id)}}" method="post">
+                                            @csrf
+                                            <button class="btn btn-danger" type="submit">X</button>
+                                        </form>
+                                    </td>
                                 </tr>
-                            </tbody>
                             @endforeach
+                            </tbody>
                         </table>
                     </div>
                 </div>

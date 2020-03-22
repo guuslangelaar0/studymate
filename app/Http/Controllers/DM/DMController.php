@@ -21,22 +21,21 @@ class DMController extends Controller
     public function index() {
         $modules = $this->module->all();
         $userModules = auth()->user()->modules->pluck('id')->toArray();
-        $exams = $this->exam
-            ->whereIn('module_id',$userModules)
+
+        $examsEnrolled = auth()->user()->exams;
+
+        $examsNotEnrolled = $this->exam
+            ->whereIn('module_id', $userModules)
+            ->whereNotIn('id', $examsEnrolled->pluck('id')->toArray())
             ->get();
 
-        return view('deadline-manager.index',compact('modules','exams'));
+        return view('deadline-manager.index',compact('modules', 'examsEnrolled', 'examsNotEnrolled'));
     }
 
     public function enroll($id) {
         try {
             $module = $this->module->find($id);
             auth()->user()->modules()->attach([$id]);
-
-            foreach ($module->exams() as $exam) {
-                auth()->user()->exams()->attach([$exam->id]);
-            }
-
         } catch (\Exception $e) {
             return redirect()->back()->with('danger',$e->getMessage());
         }
@@ -51,5 +50,25 @@ class DMController extends Controller
             return redirect()->back()->with('danger',$e->getMessage());
         }
         return redirect()->back()->with('success','Disenrolled for ' . $module->short_name ?? $module->name);
+    }
+
+    public function enrollExam($id) {
+        try {
+            $exam = $this->exam->find($id);
+            auth()->user()->exams()->attach([$id]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('danger', $e->getMessage());
+        }
+        return redirect()->back()->with('success', 'Enrolled for ' . $exam->label);
+    }
+
+    public function unenrollExam($id) {
+        try {
+            $exam = $this->exam->find($id);
+            auth()->user()->exams()->detach([$id]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('danger', $e->getMessage());
+        }
+        return redirect()->back()->with('success', 'Unenrolled for ' . $exam->label);
     }
 }

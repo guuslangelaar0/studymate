@@ -106,6 +106,9 @@ Route::middleware('auth')->prefix('admin')->group(function(){
 
         Route::post('/{id}/enroll', 'DM\DMController@enroll')->name('admin.dm.enroll');
         Route::post('/{id}/unroll', 'DM\DMController@disenroll')->name('admin.dm.disenroll');
+
+        Route::post("/{id}/enroll/exam", "DM\DMController@enrollExam")->name('admin.dm.enroll_exam');
+        Route::post("/{id}/unroll/exam", "DM\DMController@unenrollExam")->name('admin.dm.unenroll_exam');
     });
 
     Route::prefix('account')->group(function () {
