@@ -115,9 +115,10 @@ class ModuleController extends Controller
     private function sync($module, $data){
 
         $coordinators = $data['coordinators'] ?? [];
+
         $teachers = [];
 
-        foreach ($data['teachers'] as $teacher){
+        foreach ($data['teachers'] ?? [] as $teacher){
             $teachers[$teacher] = ['coordinator' => in_array($teacher, $coordinators)];
         }
 

@@ -17,12 +17,14 @@
 @import 'partials/guest';
 @import 'partials/tablestyling';
 
-body, html, #app{
+body, html, {
     height: 100%;
     min-height: 100%;
 }
 
+
 #app{
+    min-height: 100%;
     $gradient: 47deg, rgba(0,0,0,1) 0%, rgba(20,20,20,1) 50%, rgba(50,50,50,1) 100%;
     background: linear-gradient($gradient);
     background: -moz-linear-gradient($gradient);

@@ -24,4 +24,17 @@ if(btn !== null) {
         }
     });
 }
+let moreInfoBtns = document.querySelectorAll('.more-information-btn');
+
+moreInfoBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+        let body = e.target.parentNode.parentNode.querySelector('.card-body');
+        if(body.classList.contains('d-none')) {
+            body.classList.remove('d-none');
+        } else {
+            body.classList.add('d-none');
+        }
+
+    })
+});
 
