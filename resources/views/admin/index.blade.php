@@ -8,7 +8,7 @@
                     <div class="card-header">Overview</div>
 
                     <div class="card-body">
-
+                        Hi {{auth()->user()->firstname}}
                     </div>
                 </div>
             </div>
