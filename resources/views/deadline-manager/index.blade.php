@@ -117,14 +117,36 @@
                         Deadlines
                     </div>
                     <div class="card-body">
+                        <?php
+                            function getRouteSortBy($orderBy) {
+                                $url = route('admin.dm.index');
+                                return $url . '?orderBy=' . $orderBy . ',' . (app('request')->input('orderBy') == $orderBy. ',desc' ? 'asc' : "desc");
+                            }
+                        ?>
                         <table class="table">
                             <thead>
-                                <th scope="row">Module</th>
-                                <th scope="row">Exam</th>
-                                <th scope="row">Start Date</th>
-                                <th scope="row">End Date</th>
-                                <th scope="row">Tag</th>
-                                <th scope="row">Finished</th>
+                                <th scope="row">
+                                    <a href="{{getRouteSortBy('module')}}">Module</a>
+                                </th>
+                                <th scope="row">
+                                    <a href="{{getRouteSortBy('exam')}}">Exam</a>
+                                </th>
+                                <th scope="row">
+                                    <a href="{{getRouteSortBy('teacher')}}">Docent(en)</a>
+                                </th>
+                                <th scope="row">
+                                    <a href="{{getRouteSortBy('start_date')}}">Start Date</a>
+                                </th>
+                                <th scope="row">
+                                    <a href="{{getRouteSortBy('end_date')}}">End Date</a>
+                                </th>
+                                <th scope="row">
+                                    <a href="{{getRouteSortBy('tag')}}">Tag</a>
+                                </th>
+                                <th scope="row">
+                                    <a href="{{getRouteSortBy('finished')}}">Finished</a>
+                                </th>
+                                <th scope="row"></th>
                                 <th scope="row"></th>
                             </thead>
                             <tbody>
@@ -132,6 +154,11 @@
                                 <tr>
                                     <td data-label="Module">{{$exam->module->short_name ?? "N/A"}}</td>
                                     <td data-label="Exam">{{$exam->label ?? "N/A"}}</td>
+                                    <td data-label="Docent(en)">
+                                        @foreach($exam->module->teachers as $t)
+                                        {{$t->firstname}},
+                                        @endforeach
+                                    </td>
                                     <td data-label="Start Date">{{\Carbon\Carbon::parse($exam->start_date)->format("d-m-Y H:m") ?? "N/A"}}</td>
                                     <td data-label="End Date">{{\Carbon\Carbon::parse($exam->end_date)->format("d-m-Y H:m") ?? "N/A"}}</td>
                                     <td data-label="Tag">{{$exam->pivot->tag}}</td>
@@ -141,6 +168,9 @@
                                             {{method_field('put')}}
                                             <input type="checkbox" value="1" name="finished" {{$exam->pivot->finished == true ? "checked" : ""}} onclick="document.getElementById('exam-finished-{{$exam->id}}').submit()"/>
                                         </form>
+                                    </td>
+                                    <td>
+                                        <a href="{{route('admin.dm.exam.edit',$exam->id)}}" class="text-white"><i class="fas fa-edit"></i></a>
                                     </td>
                                     <td data-label="Remove">
                                         <a onclick="event.preventDefault(); document.getElementById('delete-user-exam-{{$exam->id}}').submit();" href="#" class="text-white"><i class="fas fa-trash-alt"></i></a>

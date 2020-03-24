@@ -31,7 +31,7 @@
                             </div>
                             <div class="form-group row">
                                 <label for="ec">Aantal EC</label>
-                            <input type="number" class="form-control" step="0.1" min="0" max="10" name="ec" id="ec" value="{{isset($exam) ? ($exam->ec ?? 0) : 0}}">
+                            <input type="number" class="form-control" step="0.1" min="0" name="ec" id="ec" value="{{isset($exam) ? ($exam->ec ?? 0) : 0}}">
                             </div>
                             <div class="form-group row">
                                 <label for="start_date">Start Date</label>

@@ -22,5 +22,16 @@ class Exam extends Model
         return ['assessment','prelim'];
     }
 
+    public static function getPossibleTags() {
+        return [
+            'makkelijk',
+            'moeilijk',
+            'veel werk',
+            'weinig werk',
+            'leuk',
+            'niet leuk',
+        ];
+    }
+
 
 }

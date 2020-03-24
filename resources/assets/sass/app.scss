@@ -22,6 +22,10 @@ body, html, {
     min-height: 100%;
 }
 
+.form-control:disabled {
+    background-color: #ccc;
+}
+
 
 #app{
     min-height: 100%;
