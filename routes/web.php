@@ -59,9 +59,9 @@ Route::middleware('auth')->prefix('admin')->group(function(){
         Route::get('/{module_id}/exams/create','Admin\ExamController@create')->name('admin.module.exam.create');
         Route::get('/exams/{id}/edit','Admin\ExamController@edit')->name('admin.module.exam.edit');
 
-        Route::put('/exams/{id}/update','Admin\Examcontroller@update')->name('admin.module.exam.update');
-        Route::post('/exams/store','Admin\Examcontroller@store')->name('admin.module.exam.store');
-        Route::delete('/exams/{id}/destroy','Admin\Examcontroller@destroy')->name('admin.module.exam.destroy');
+        Route::put('/exams/{id}/update','Admin\ExamController@update')->name('admin.module.exam.update');
+        Route::post('/exams/store','Admin\ExamController@store')->name('admin.module.exam.store');
+        Route::delete('/exams/{id}/destroy','Admin\ExamController@destroy')->name('admin.module.exam.destroy');
 
     });
 
