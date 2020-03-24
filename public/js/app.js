@@ -49530,10 +49530,22 @@ moreInfoBtns.forEach(function (btn) {
   btn.addEventListener('click', function (e) {
     var body = e.target.parentNode.parentNode.querySelector('.card-body');
 
-    if (body.classList.contains('d-none')) {
-      body.classList.remove('d-none');
-    } else {
-      body.classList.add('d-none');
+    if (btn.classList.contains('module-info')) {
+      if (body.classList.contains('d-none')) {
+        body.classList.remove('d-none');
+      } else {
+        body.classList.add('d-none');
+      }
+    }
+
+    if (btn.classList.contains('block-info')) {
+      var tbl = body.querySelector('table');
+
+      if (tbl.classList.contains('d-none')) {
+        tbl.classList.remove('d-none');
+      } else {
+        tbl.classList.add('d-none');
+      }
     }
   });
 });
@@ -49738,8 +49750,8 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Code\studymate\resources\assets\js\app.js */"./resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! D:\Code\studymate\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
+__webpack_require__(/*! C:\Development\Code\studymate\resources\assets\js\app.js */"./resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! C:\Development\Code\studymate\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
 
 
 /***/ })

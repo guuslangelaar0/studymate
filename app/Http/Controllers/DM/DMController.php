@@ -78,7 +78,7 @@ class DMController extends Controller
         try{
             $finished = isset($data['finished']) ? 1 : 0;
             //sync exam
-            auth()->user()->exams()->sync([$id => ['finished' => $finished]]);
+            auth()->user()->exams()->syncWithoutDetaching([$id => ['finished' => $finished]]);
 
         } catch(\Exception $e) {
             return redirect()->back()->with('danger',$e->getMessage());

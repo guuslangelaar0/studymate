@@ -10,20 +10,36 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-8">
-                                <ul>
+                                <ul class="list-unstyled mb-3">
                                     <li>
-                                        Voornaam: {{$user->firstname}}
+                                        <b>Voornaam:</b>
+                                        {{$user->firstname}}
                                     </li>
                                     <li>
-                                        Achternaam: {{$user->lastname}}
+                                        <b>Achternaam:</b> {{$user->lastname}}
                                     </li>
                                     <li>
-                                        E-mail adres: {{$user->email}}
+                                        <b>E-mail adres:</b> {{$user->email}}
                                     </li>
                                     <li>
-                                        Profiel aangemaakt op: {{date('d/m/Y H:m:s', strtotime($user->created_at))}}
+                                        <b>Profiel aangemaakt op:</b> {{date('d/m/Y H:m:s', strtotime($user->created_at))}}
                                     </li>
                                 </ul>
+                                <?php
+                                    $EC = 0;
+                                    foreach(auth()->user()->modules as $m) {
+                                        $EC += $m->exams->sum('ec');
+                                    }
+
+                                    $acEC = auth()->user()->exams()->where('finished',1)->pluck('ec')->sum();
+
+                                    // using @ because 0 / 0 gives error, now gives NAN
+                                    $perc = @($acEC / $EC) * 100;
+                                ?>
+                                <h3>Voortgangsmeter</h3>
+                                <div class="progress mb-3" style="height: 2rem;">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{is_nan($perc) ? 0 : $perc}}%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">{{$acEC}} van {{$EC }} EC</div>
+                                </div>
                             </div>
                             <div class="col-md-4">
                                 <p>
@@ -140,12 +156,34 @@
                                     <div class="card-body">
                                         <div class="row">
                                             @foreach(Arr::get($period,'blocks',[]) as $block)
+                                                <?php
+                                                $blockModules = $user->modules->where('block',$block['nr']);
+                                                $totalEC = 0;
+                                                $achievedEC = 0;
+                                                if($blockModules->count() > 0) {
+                                                    foreach($blockModules as $bm) {
+                                                        $totalEC += $bm->exams->sum('ec');
+                                                        $achievedEC += auth()->user()->exams()->where('module_id',$bm->id)->where('finished',1)->pluck('ec')->sum();
+                                                    }
+                                                }
+                                                ?>
                                             <div class="col-6">
                                                 <div class="card">
                                                     <div class="card-header">
                                                         Blok {{ $block['nr'] ?? "" }}
+                                                        <i class="fas fa-info-circle float-right more-information-btn block-info"></i>
                                                     </div>
                                                     <div class="card-body">
+                                                        <table class="table d-none">
+                                                            <tr>
+                                                                <td>Totaal EC</td>
+                                                                <td>{{$totalEC}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Behaald EC</td>
+                                                                <td>{{$achievedEC}}</td>
+                                                            </tr>
+                                                        </table>
                                                         @foreach($user->modules->where('block',$block['nr']) as $module)
                                                             <div class="card">
                                                                 <div class="card-header">
@@ -156,7 +194,7 @@
                                                                     @else
                                                                         <i class="fas fa-times-circle" style="color: red;"></i>
                                                                     @endif
-                                                                    <i class="fas fa-info-circle float-right more-information-btn"></i>
+                                                                    <i class="fas fa-info-circle float-right more-information-btn module-info"></i>
                                                                 </div>
                                                                 <div class="card-body d-none">
                                                                     <table class="table">
@@ -167,7 +205,7 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>Behaald EC</td>
-                                                                                <td>{{auth()->user()->exams()->where('module_id',$module->id)->pluck('ec')->sum() ?? "N/A"}}</td>
+                                                                                <td>{{auth()->user()->exams()->where('module_id',$module->id)->where('finished',1)->pluck('ec')->sum() ?? "N/A"}}</td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>Cijfer (Gem)</td>

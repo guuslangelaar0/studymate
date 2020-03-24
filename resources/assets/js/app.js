@@ -29,12 +29,21 @@ let moreInfoBtns = document.querySelectorAll('.more-information-btn');
 moreInfoBtns.forEach((btn) => {
     btn.addEventListener('click', (e) => {
         let body = e.target.parentNode.parentNode.querySelector('.card-body');
-        if(body.classList.contains('d-none')) {
-            body.classList.remove('d-none');
-        } else {
-            body.classList.add('d-none');
+        if(btn.classList.contains('module-info')) {
+            if(body.classList.contains('d-none')) {
+                body.classList.remove('d-none');
+            } else {
+                body.classList.add('d-none');
+            }
         }
-
+        if (btn.classList.contains('block-info')) {
+            let tbl = body.querySelector('table');
+            if(tbl.classList.contains('d-none')) {
+                tbl.classList.remove('d-none');
+            } else {
+                tbl.classList.add('d-none');
+            }
+        }
     })
 });
 
