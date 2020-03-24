@@ -43,9 +43,9 @@ class UsersTableSeeder extends Seeder
             if(User::where('username',$givenUser['username'])->first() === null){
                 $user = new User();
                 $user->username = $givenUser['username'];
-                $user->firstname = encrypt($givenUser['firstname']);
-                $user->lastname = encrypt($givenUser['lastname']);
-                $user->email = encrypt($givenUser['email']);
+                $user->firstname = $givenUser['firstname'];
+                $user->lastname = $givenUser['lastname'];
+                $user->email = $givenUser['email'];
                 $user->password = bcrypt($givenUser['password']);
                 $user->save();
 
