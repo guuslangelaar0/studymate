@@ -14,7 +14,7 @@ class AddBlockToModulesTable extends Migration
     public function up()
     {
         Schema::table('modules', function (Blueprint $table) {
-            $table->integer('block');
+            $table->integer('block')->default(1);
         });
     }
 
