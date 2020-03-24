@@ -27,11 +27,11 @@
                                 </ul>
                                 <?php
                                     $EC = 0;
-                                    foreach(auth()->user()->modules as $m) {
+                                    foreach($user->modules as $m) {
                                         $EC += $m->exams->sum('ec');
                                     }
 
-                                    $acEC = auth()->user()->exams()->where('finished',1)->pluck('ec')->sum();
+                                    $acEC = $user->exams()->where('finished',1)->pluck('ec')->sum();
 
                                     // using @ because 0 / 0 gives error, now gives NAN
                                     $perc = @($acEC / $EC) * 100;
@@ -163,7 +163,7 @@
                                                 if($blockModules->count() > 0) {
                                                     foreach($blockModules as $bm) {
                                                         $totalEC += $bm->exams->sum('ec');
-                                                        $achievedEC += auth()->user()->exams()->where('module_id',$bm->id)->where('finished',1)->pluck('ec')->sum();
+                                                        $achievedEC += $user->exams()->where('module_id',$bm->id)->where('finished',1)->pluck('ec')->sum();
                                                     }
                                                 }
                                                 ?>
@@ -205,11 +205,11 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>Behaald EC</td>
-                                                                                <td>{{auth()->user()->exams()->where('module_id',$module->id)->where('finished',1)->pluck('ec')->sum() ?? "N/A"}}</td>
+                                                                                <td>{{$user->exams()->where('module_id',$module->id)->where('finished',1)->pluck('ec')->sum() ?? "N/A"}}</td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>Cijfer (Gem)</td>
-                                                                                <td>{{ number_format(auth()->user()->exams()->where('module_id',$module->id)->pluck('grade')->avg(),1,',','.') ?? "N/A"}}</td>
+                                                                                <td>{{ number_format($user->exams()->where('module_id',$module->id)->pluck('grade')->avg(),1,',','.') ?? "N/A"}}</td>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
