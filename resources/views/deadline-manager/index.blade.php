@@ -31,7 +31,7 @@
                                         @if(count($module->teachers) != 0)
                                         <ul class="list-unstyled">
                                             @foreach($module->teachers as $teacher)
-                                                <li>{{$teacher->firstname}}</li>
+                                                <li>{{$teacher->firstname}} {{$teacher->lastname}}</li>
                                             @endforeach
                                         </ul>
                                         @else
@@ -42,7 +42,7 @@
                                         @if(count($module->coordinators) != 0)
                                             <ul class="list-unstyled">
                                                 @foreach($module->coordinators as $coordinator)
-                                                    <li>{{$coordinator->firstname}}</li>
+                                                    <li>{{$coordinator->firstname}} {{$coordinator->lastname}}</li>
                                                 @endforeach
                                             </ul>
                                         @else
@@ -159,7 +159,8 @@
                                         <td data-label="Exam">{{$exam->label ?? "N/A"}}</td>
                                         <td data-label="Docent(en)">
                                             @foreach($exam->module->teachers as $t)
-                                            {{$t->firstname}},
+                                            {{$t->lastname}}
+                                            {{!$loop->last ? ', ' : ''}}
                                             @endforeach
                                         </td>
                                         <td data-label="Start Date">{{\Carbon\Carbon::parse($exam->start_date)->format("d-m-Y H:m") ?? "N/A"}}</td>
