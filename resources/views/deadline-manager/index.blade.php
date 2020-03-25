@@ -31,7 +31,7 @@
                                         @if(count($module->teachers) != 0)
                                         <ul class="list-unstyled">
                                             @foreach($module->teachers as $teacher)
-                                                <li>{{$teacher->firstname}}</li>
+                                                <li>{{$teacher->firstname}} {{$teacher->lastname}}</li>
                                             @endforeach
                                         </ul>
                                         @else
@@ -42,7 +42,7 @@
                                         @if(count($module->coordinators) != 0)
                                             <ul class="list-unstyled">
                                                 @foreach($module->coordinators as $coordinator)
-                                                    <li>{{$coordinator->firstname}}</li>
+                                                    <li>{{$coordinator->firstname}} {{$coordinator->lastname}}</li>
                                                 @endforeach
                                             </ul>
                                         @else
@@ -151,12 +151,17 @@
                             </thead>
                             <tbody>
                             @foreach($examsEnrolled as $exam)
-                                <tr>
+                                <tr
+                                @if ($exam->pivot->finished == true)
+                                style="opacity:0.8;text-decoration:line-through;";
+                                @endif
+                                >
                                     <td data-label="Module">{{$exam->module->short_name ?? "N/A"}}</td>
                                     <td data-label="Exam">{{$exam->label ?? "N/A"}}</td>
                                     <td data-label="Docent(en)">
                                         @foreach($exam->module->teachers as $t)
-                                        {{$t->firstname}},
+                                        {{$t->lastname}}
+                                        {{!$loop->last ? ', ' : ''}}
                                         @endforeach
                                     </td>
                                     <td data-label="Start Date">{{\Carbon\Carbon::parse($exam->start_date)->format("d-m-Y H:m") ?? "N/A"}}</td>
@@ -165,19 +170,19 @@
                                         <form action="{{route('admin.dm.user-exam.update',$exam->id)}}" method="post" class="form" id="exam-tag-{{$exam->id}}">
                                             @csrf
                                             {{method_field('put')}}
-                                            <input type="hidden" name="finished" value="{{$exam->pivot->finished ? 1 : 0}}">
-                                            <select name="tag" id="tag" onchange="document.getElementById('exam-tag-{{$exam->id}}').submit()">
-                                                @foreach ($tagList as $t)
-                                                    <option {{$t == $exam->pivot->tag ? "selected" : ""}} value="{{$t}}">{{$t}}</option>
-                                                @endforeach
-                                            </select>
+                                        <input type="hidden" name="finished" value="{{$exam->pivot->finished}}">
+                                        <select name="tag" id="tag" onchange="document.getElementById('exam-tag-{{$exam->id}}').submit()">
+                                            @foreach ($tagList as $t)
+                                                <option {{$t == $exam->pivot->tag ? "selected" : ""}} value="{{$t}}">{{$t}}</option>
+                                            @endforeach
+                                        </select>
                                         </form>
                                     </td>
                                     <td data-label="Finished">
-                                        <form action="{{route('admin.dm.user-exam.update',$exam->id)}}" method="post" class="form" id="exam-finished-{{$exam->id}}">
+                                        <form action="{{route('admin.dm.user-exam.update',$exam->id)}}" method="post" class="form" id="exam-fin-{{$exam->id}}">
                                             @csrf
                                             {{method_field('put')}}
-                                            <input type="checkbox" value="1" name="finished" {{$exam->pivot->finished == true ? "checked" : ""}} onclick="document.getElementById('exam-finished-{{$exam->id}}').submit()"/>
+                                        <input type="checkbox" value="1" name="finished" {{$exam->pivot->finished == true ? "checked" : ""}} onclick="document.getElementById('exam-fin-{{$exam->id}}').submit()"/>
                                         </form>
                                     </td>
                                     <td>
