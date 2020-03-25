@@ -151,7 +151,11 @@
                             </thead>
                             <tbody>
                             @foreach($examsEnrolled as $exam)
-                                <tr>
+                                <tr
+                                @if ($exam->pivot->finished == true)
+                                style="opacity:0.8;text-decoration:line-through;";
+                                @endif
+                                >
                                     <form action="{{route('admin.dm.user-exam.update',$exam->id)}}" method="post" class="form" id="exam-tr-{{$exam->id}}">
                                         @csrf
                                         {{method_field('put')}}
