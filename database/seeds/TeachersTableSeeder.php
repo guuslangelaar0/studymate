@@ -17,7 +17,11 @@ class TeachersTableSeeder extends Seeder
             [
                 'firstname' => 'Rik',
                 'lastname' => 'Meijer',
-                'email' => 'r.meijer@avans.nl'
+                'email' => 'r.meijer@avans.nl',
+                'modules' => [
+                    1,
+                    2 => ['coordinator' => 1],
+                ]
             ],
             [
                 'firstname' => 'Guus',
@@ -30,30 +34,18 @@ class TeachersTableSeeder extends Seeder
                 'email' => 'roy@avans.nl'
             ]
         ];
+        $all = Teacher::all()->pluck('email')->toArray(); //decrypted by the model, but cant search for it.
 
         foreach ($teachers as $givenTeacher) {
-            if (Teacher::where('email', $givenTeacher['email'])->first() === null) {
+            if (!in_array($givenTeacher['email'], $all)) {
                 $teacher = new Teacher();
                 $teacher->firstname = $givenTeacher['firstname'];
                 $teacher->lastname = $givenTeacher['lastname'];
                 $teacher->email = $givenTeacher['email'];
                 $teacher->save();
+
+                $teacher->modules()->sync($givenTeacher['modules'] ?? []);
             }
         }
-
-        // $rikWhere = [
-        //         [
-        //             'short_name', '=', 'WEBPHP'
-        //         ],
-        //         [
-        //             'block', '=', '7'
-        //         ]
-        //     ];
-
-        // $rikModules = Module::where($rikWhere)->pluck('id')
-        //     ->all();
-
-        // Teacher::where('email', encrypt('r.meijer@avans.nl'))
-        //     ->first()->modules()->sync($rikModules);
     }
 }

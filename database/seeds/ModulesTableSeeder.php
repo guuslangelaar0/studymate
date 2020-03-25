@@ -31,7 +31,7 @@ class ModulesTableSeeder extends Seeder
         ];
 
         foreach ($modules as $givenModule) {
-            if (Module::where('short_name', $givenModule['short_name']) === null) {
+            if (Module::where('short_name', $givenModule['short_name'])->first() === null) {
                 $module = new Module();
                 $module->name = $givenModule['name'];
                 $module->short_name = $givenModule['short_name'];
