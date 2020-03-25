@@ -30,6 +30,6 @@ class CreateModuleTeachersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('class_teachers');
+        Schema::dropIfExists('module_teachers');
     }
 }

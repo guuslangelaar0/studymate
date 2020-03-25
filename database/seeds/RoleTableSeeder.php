@@ -15,6 +15,7 @@ class RoleTableSeeder extends Seeder
     {
         $roles = [
             ['name' => 'admin','label' => 'Administrator'],
+            ['name' => 'deadline', 'label' => 'Deadline Manager']
         ];
 
         foreach ($roles as $role){
@@ -24,6 +25,16 @@ class RoleTableSeeder extends Seeder
             }
         }
 
-        Role::where('name','admin')->first()->permissions()->sync(Permission::all('id'));
+        $adminPermissions = Permission::all('id');
+        Role::where('name','admin')->first()
+            ->permissions()
+            ->sync($adminPermissions);
+
+        $deadlinePermissions = Permission::where('name', 'like', 'dm.%')
+            ->pluck('id')
+            ->all();
+        Role::where('name', 'deadline')->first()
+            ->permissions()
+            ->sync($deadlinePermissions);
     }
 }

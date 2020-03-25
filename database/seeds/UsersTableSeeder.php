@@ -14,12 +14,20 @@ class UsersTableSeeder extends Seeder
     {
         $users = [
             [
+                'username' => 'admin',
+                'email' => 'admin@guuslangelaar.com',
+                'firstname' => 'Admin',
+                'lastname' => 'Admin',
+                'password' => 'test123',
+                'roles' => [1]
+            ],
+            [
                 'username' => 'guuslangelaar',
                 'email' => 'guuslangelaar@gmail.com',
                 'firstname' => 'Guus',
                 'lastname' => 'Langelaar',
                 'password' => 'test123',
-                'roles' => [1]
+                'roles' => [2]
             ],
             [
                 'username' => 'royberris',
@@ -27,7 +35,7 @@ class UsersTableSeeder extends Seeder
                 'firstname' => 'Roy',
                 'lastname' => 'Berris',
                 'password' => 'test123',
-                'roles' => [1]
+                'roles' => [2]
             ],
             [
                 'username' => 'dusk',
