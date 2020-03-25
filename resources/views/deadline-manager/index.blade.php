@@ -165,7 +165,7 @@
                                         <form action="{{route('admin.dm.user-exam.update',$exam->id)}}" method="post" class="form" id="exam-tag-{{$exam->id}}">
                                             @csrf
                                             {{method_field('put')}}
-                                            <input type="hidden" name="finished" value="{{$exam->pivot->finished}}">
+                                            <input type="hidden" name="finished" value="{{$exam->pivot->finished ? 1 : 0}}">
                                             <select name="tag" id="tag" onchange="document.getElementById('exam-tag-{{$exam->id}}').submit()">
                                                 @foreach ($tagList as $t)
                                                     <option {{$t == $exam->pivot->tag ? "selected" : ""}} value="{{$t}}">{{$t}}</option>

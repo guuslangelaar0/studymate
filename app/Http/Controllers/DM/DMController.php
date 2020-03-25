@@ -175,9 +175,10 @@ class DMController extends Controller
 
     public function updateUserExam(Request $request, $id) {
         $data = $request->all();
+
         try{
             $exam = auth()->user()->exams()->find($id);
-            $finished = isset($data['finished']) ? 1 : 0;
+            $finished = isset($data['finished']) ? $data['finished'] : 0;
             $tag = $data['tag'] ?? $exam->pivot->tag;
             //sync exam
             auth()->user()->exams()->syncWithoutDetaching(
