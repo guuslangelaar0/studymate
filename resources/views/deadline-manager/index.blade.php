@@ -161,7 +161,18 @@
                                     </td>
                                     <td data-label="Start Date">{{\Carbon\Carbon::parse($exam->start_date)->format("d-m-Y H:m") ?? "N/A"}}</td>
                                     <td data-label="End Date">{{\Carbon\Carbon::parse($exam->end_date)->format("d-m-Y H:m") ?? "N/A"}}</td>
-                                    <td data-label="Tag">{{$exam->pivot->tag}}</td>
+                                    <td data-label="Tag">
+                                        <form action="{{route('admin.dm.user-exam.update',$exam->id)}}" method="post" class="form" id="exam-tag-{{$exam->id}}">
+                                            @csrf
+                                            {{method_field('put')}}
+                                            <input type="hidden" name="finished" value="{{$exam->pivot->finished}}">
+                                            <select name="tag" id="tag" onchange="document.getElementById('exam-tag-{{$exam->id}}').submit()">
+                                                @foreach ($tagList as $t)
+                                                    <option {{$t == $exam->pivot->tag ? "selected" : ""}} value="{{$t}}">{{$t}}</option>
+                                                @endforeach
+                                            </select>
+                                        </form>
+                                    </td>
                                     <td data-label="Finished">
                                         <form action="{{route('admin.dm.user-exam.update',$exam->id)}}" method="post" class="form" id="exam-finished-{{$exam->id}}">
                                             @csrf

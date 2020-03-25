@@ -85,7 +85,17 @@ class DMController extends Controller
             ->whereNotIn('id', $examsEnrolled->pluck('id')->toArray())
             ->get();
 
-        return view('deadline-manager.index',compact('modules', 'examsEnrolled', 'examsNotEnrolled'));
+        $tagList = [
+            '',
+            'makkelijk',
+            'moeilijk',
+            'veel werk',
+            'weinig werk',
+            'leuk',
+            'niet leuk'
+        ];
+
+        return view('deadline-manager.index',compact('modules', 'examsEnrolled', 'examsNotEnrolled', 'tagList'));
     }
 
     public function edit($id) {
@@ -166,9 +176,17 @@ class DMController extends Controller
     public function updateUserExam(Request $request, $id) {
         $data = $request->all();
         try{
+            $exam = auth()->user()->exams()->find($id);
             $finished = isset($data['finished']) ? 1 : 0;
+            $tag = $data['tag'] ?? $exam->pivot->tag;
             //sync exam
-            auth()->user()->exams()->syncWithoutDetaching([$id => ['finished' => $finished]]);
+            auth()->user()->exams()->syncWithoutDetaching(
+                [$id =>
+                    [
+                        'finished' => $finished,
+                        'tag' => $tag
+                    ]
+                ]);
 
         } catch(\Exception $e) {
             return redirect()->back()->with('danger',$e->getMessage());
