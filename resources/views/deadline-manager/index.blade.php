@@ -152,37 +152,33 @@
                             <tbody>
                             @foreach($examsEnrolled as $exam)
                                 <tr>
-                                    <td data-label="Module">{{$exam->module->short_name ?? "N/A"}}</td>
-                                    <td data-label="Exam">{{$exam->label ?? "N/A"}}</td>
-                                    <td data-label="Docent(en)">
-                                        @foreach($exam->module->teachers as $t)
-                                        {{$t->firstname}},
-                                        @endforeach
-                                    </td>
-                                    <td data-label="Start Date">{{\Carbon\Carbon::parse($exam->start_date)->format("d-m-Y H:m") ?? "N/A"}}</td>
-                                    <td data-label="End Date">{{\Carbon\Carbon::parse($exam->end_date)->format("d-m-Y H:m") ?? "N/A"}}</td>
-                                    <td data-label="Tag">
-                                        <form action="{{route('admin.dm.user-exam.update',$exam->id)}}" method="post" class="form" id="exam-tag-{{$exam->id}}">
-                                            @csrf
-                                            {{method_field('put')}}
+                                    <form action="{{route('admin.dm.user-exam.update',$exam->id)}}" method="post" class="form" id="exam-tr-{{$exam->id}}">
+                                        @csrf
+                                        {{method_field('put')}}
+                                        <td data-label="Module">{{$exam->module->short_name ?? "N/A"}}</td>
+                                        <td data-label="Exam">{{$exam->label ?? "N/A"}}</td>
+                                        <td data-label="Docent(en)">
+                                            @foreach($exam->module->teachers as $t)
+                                            {{$t->firstname}},
+                                            @endforeach
+                                        </td>
+                                        <td data-label="Start Date">{{\Carbon\Carbon::parse($exam->start_date)->format("d-m-Y H:m") ?? "N/A"}}</td>
+                                        <td data-label="End Date">{{\Carbon\Carbon::parse($exam->end_date)->format("d-m-Y H:m") ?? "N/A"}}</td>
+                                        <td data-label="Tag">
                                             <input type="hidden" name="finished" value="{{$exam->pivot->finished}}">
-                                            <select name="tag" id="tag" onchange="document.getElementById('exam-tag-{{$exam->id}}').submit()">
+                                            <select name="tag" id="tag" onchange="document.getElementById('exam-tr-{{$exam->id}}').submit()">
                                                 @foreach ($tagList as $t)
                                                     <option {{$t == $exam->pivot->tag ? "selected" : ""}} value="{{$t}}">{{$t}}</option>
                                                 @endforeach
                                             </select>
-                                        </form>
-                                    </td>
-                                    <td data-label="Finished">
-                                        <form action="{{route('admin.dm.user-exam.update',$exam->id)}}" method="post" class="form" id="exam-finished-{{$exam->id}}">
-                                            @csrf
-                                            {{method_field('put')}}
-                                            <input type="checkbox" value="1" name="finished" {{$exam->pivot->finished == true ? "checked" : ""}} onclick="document.getElementById('exam-finished-{{$exam->id}}').submit()"/>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <a href="{{route('admin.dm.exam.edit',$exam->id)}}" class="text-white"><i class="fas fa-edit"></i></a>
-                                    </td>
+                                        </td>
+                                        <td data-label="Finished">
+                                            <input type="checkbox" value="1" name="finished" {{$exam->pivot->finished == true ? "checked" : ""}} onclick="document.getElementById('exam-tr-{{$exam->id}}').submit()"/>
+                                        </td>
+                                        <td>
+                                            <a href="{{route('admin.dm.exam.edit',$exam->id)}}" class="text-white"><i class="fas fa-edit"></i></a>
+                                        </td>
+                                    </form>
                                     <td data-label="Remove">
                                         <a onclick="event.preventDefault(); document.getElementById('delete-user-exam-{{$exam->id}}').submit();" href="#" class="text-white"><i class="fas fa-trash-alt"></i></a>
                                         <form action="{{route('admin.dm.unenroll_exam', $exam->id)}}" method="POST" class="d-none" id="delete-user-exam-{{$exam->id}}">
