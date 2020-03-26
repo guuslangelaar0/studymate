@@ -5,16 +5,20 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     protected $user;
     protected $role;
-    public function __construct(User $user, Role $role)
+    protected $userService;
+
+    public function __construct(User $user, Role $role, UserService $userService)
     {
         $this->user = $user;
         $this->role = $role;
+        $this->userService = $userService;
     }
 
     public function index($pp = 15)
@@ -50,7 +54,7 @@ class UserController extends Controller
 
         try {
 
-            $data = $this->encryptPassword($data);
+            $data = $this->userService->encryptPasswordInData($data);
             $user = $this->user->create($data);
             $user->save();
 
@@ -83,6 +87,7 @@ class UserController extends Controller
         checkPermissions('user.update');
 
         $request->validate([
+            'username' => 'required',
             'firstname' => 'required',
             'lastname' => 'required',
             'email' => 'required|email',
@@ -92,7 +97,7 @@ class UserController extends Controller
 
         try {
             $user =  $this->user->find($id);
-            $data = $this->encryptPassword($data);
+            $data = $this->userService->encryptPasswordInData($data);
             $user->update($data);
 
             $this->syncRoles($user, $data);
@@ -115,17 +120,6 @@ class UserController extends Controller
         return redirect()->route('admin.user.index')->with('success','User deleted');
     }
 
-    private function encryptPassword($data){
-        if($data['password'] !== $data['confirm_password']){
-            throw new \Exception("Passwords do not match");
-        }
-        if(!empty($data['password'])){
-            $data['password'] = bcrypt($data['password']);
-        } else {
-            unset($data['password'], $data['confirm_password']);
-        }
-        return $data;
-    }
 
     private function syncRoles($user, $data){
         $data['roles'] = $data['roles'] ?? [];

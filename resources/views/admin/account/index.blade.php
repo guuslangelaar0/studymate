@@ -42,6 +42,8 @@
                             </a>
                         </div>
                         @endif
+                        <hr>
+                        <a href="{{route('admin.account.edit')}}" class="btn btn-primary">Account bewerken</a>
                     </div>
                 </div>
             </div>
